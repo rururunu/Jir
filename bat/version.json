@@ -1,0 +1,1594 @@
+{
+  "generated_at": "2026-05-13",
+  "source": "Foojay Disco API",
+  "platform": "windows",
+  "architecture": "x64",
+  "package_type": "jdk",
+  "selection": "one latest directly downloadable package per Java feature version and distro; zip preferred",
+  "packages": [
+    {
+      "version": 6,
+      "java_version": "6.0.119+119",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu6.22.0.3-jdk6.0.119-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu6.22.0.3-jdk6.0.119-win_x64.zip"
+    },
+    {
+      "version": 7,
+      "java_version": "7.0.352+1",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu7.56.0.11-ca-jdk7.0.352-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu7.56.0.11-ca-jdk7.0.352-win_x64.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.292",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK8U-jdk_x64_windows_hotspot_8u292b10.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jdk_x64_windows_hotspot_8u292b10.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.292",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK8U-jdk_x64_windows_openj9_8u292b10_openj9-0.26.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10_openj9-0.26.0/OpenJDK8U-jdk_x64_windows_openj9_8u292b10_openj9-0.26.0.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.472+8",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-8.472.08.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/8.472.08.1/amazon-corretto-8.472.08.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.482",
+      "firm": "Dragonwell",
+      "distro": "dragonwell",
+      "filename": "Alibaba_Dragonwell_Standard_8.28.27_x64_windows.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/dragonwell-project/dragonwell8/releases/download/dragonwell-standard-8.28.27_jdk8u482-ga/Alibaba_Dragonwell_Standard_8.28.27_x64_windows.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.492",
+      "firm": "Kona",
+      "distro": "kona",
+      "filename": "TencentKona8.0.26.b1_jdk_windows-x86_64_8u492_signed.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/Tencent/TencentKona-8/releases/download/8.0.26-GA/TencentKona8.0.26.b1_jdk_windows-x86_64_8u492_signed.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.492+9",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk8u492+9-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/8u492+9/bellsoft-jdk8u492+9-windows-amd64-full.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.332+9",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-1.8.0-openjdk-1.8.0.332-1.b09.ojdkbuild.windows.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-1.8.0-openjdk-1.8.0.332-1.b09/java-1.8.0-openjdk-1.8.0.332-1.b09.ojdkbuild.windows.x86_64.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.482+8",
+      "firm": "OpenLogic",
+      "distro": "openlogic",
+      "filename": "openlogic-openjdk-8u482-b08-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u482-b08/openlogic-openjdk-8u482-b08-windows-x64.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.342+7",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "OpenJDK8U-jdk_x64_windows_8u342b07.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases/download/jdk8u342-b07/OpenJDK8U-jdk_x64_windows_8u342b07.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.345+1",
+      "firm": "Red Hat",
+      "distro": "redhat",
+      "filename": "java-1.8.0-openjdk-1.8.0.345-1.b01.redhat.windows.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://openjdk-sources.osci.io/marketplace/8/java-1.8.0-openjdk-1.8.0.345-1.b01.windows.redhat/java-1.8.0-openjdk-1.8.0.345-1.b01.redhat.windows.x86_64.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.482.1",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_8.0.482.1.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u482-b08.1_openj9-0.57.0/ibm-semeru-open-jdk_x64_windows_8.0.482.1.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.492+9",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK8U-jdk_x64_windows_hotspot_8u492b09.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u492-b09/OpenJDK8U-jdk_x64_windows_hotspot_8u492b09.zip"
+    },
+    {
+      "version": 8,
+      "java_version": "8.0.492+9",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu8.94.0.17-ca-jdk8.0.492-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu8.94.0.17-ca-jdk8.0.492-win_x64.zip"
+    },
+    {
+      "version": 9,
+      "java_version": "9.0.4",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK9U-jdk_x64_windows_hotspot_9.0.4_11.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk9-binaries/releases/download/jdk-9.0.4%2B11/OpenJDK9U-jdk_x64_windows_hotspot_9.0.4_11.zip"
+    },
+    {
+      "version": 9,
+      "java_version": "9.0.4",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK9-OPENJ9_x64_Windows_jdk-9.0.4.12_openj9-0.9.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk9-openj9-releases/releases/download/jdk-9.0.4%2B12_openj9-0.9.0/OpenJDK9-OPENJ9_x64_Windows_jdk-9.0.4.12_openj9-0.9.0.zip"
+    },
+    {
+      "version": 9,
+      "java_version": "9.0.4+11",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-9-openjdk-9.0.4-1.b11.ojdkbuild.windows.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/9.0.4-1/java-9-openjdk-9.0.4-1.b11.ojdkbuild.windows.x86_64.zip"
+    },
+    {
+      "version": 9,
+      "java_version": "9.0.7",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu9.0.7.1-ca-jdk9.0.7-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu9.0.7.1-ca-jdk9.0.7-win_x64.zip"
+    },
+    {
+      "version": 10,
+      "java_version": "10.0.2",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK10U-jdk_x64_windows_hotspot_10.0.2_13.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk10-binaries/releases/download/jdk-10.0.2%2B13.1/OpenJDK10U-jdk_x64_windows_hotspot_10.0.2_13.zip"
+    },
+    {
+      "version": 10,
+      "java_version": "10.0.2",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK10-OPENJ9_x64_Windows_jdk-10.0.2.13_openj9-0.9.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk10-openj9-releases/releases/download/jdk-10.0.2%2B13_openj9-0.9.0/OpenJDK10-OPENJ9_x64_Windows_jdk-10.0.2.13_openj9-0.9.0.zip"
+    },
+    {
+      "version": 10,
+      "java_version": "10.0.2+13",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-10-openjdk-10.0.2-1.b13.ojdkbuild.windows.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/10.0.2-1/java-10-openjdk-10.0.2-1.b13.ojdkbuild.windows.x86_64.zip"
+    },
+    {
+      "version": 10,
+      "java_version": "10.0.2+13",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu10.3.5-ca-jdk10.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu10.3.5-ca-jdk10.0.2-win_x64.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.11",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK11U-jdk_x64_windows_hotspot_11.0.11_9.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.11_9.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.11",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK11U-jdk_x64_windows_openj9_11.0.11_9_openj9-0.26.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9_openj9-0.26.0/OpenJDK11U-jdk_x64_windows_openj9_11.0.11_9_openj9-0.26.0.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-11.0.31.11.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/11.0.31.11.1/amazon-corretto-11.0.31.11.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.30",
+      "firm": "Dragonwell",
+      "distro": "dragonwell",
+      "filename": "Alibaba_Dragonwell_Extended_11.0.30.27.7_x64_windows.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/dragonwell-project/dragonwell11/releases/download/dragonwell-extended-11.0.30.27_jdk-11.0.30-ga/Alibaba_Dragonwell_Extended_11.0.30.27.7_x64_windows.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31+1",
+      "firm": "Kona",
+      "distro": "kona",
+      "filename": "TencentKona-11.0.31.b1_jdk_windows-x86_64_signed.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/Tencent/TencentKona-11/releases/download/kona11.0.31/TencentKona-11.0.31.b1_jdk_windows-x86_64_signed.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31+11",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk11.0.31+11-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/11.0.31+11/bellsoft-jdk11.0.31+11-windows-amd64-full.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31",
+      "firm": "Microsoft",
+      "distro": "microsoft",
+      "filename": "microsoft-jdk-11.0.31-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://aka.ms/download-jdk/microsoft-jdk-11.0.31-windows-x64.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.15",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-11-openjdk-11.0.15.9-1.windows.ojdkbuild.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-11-openjdk-11.0.15.9-1/java-11-openjdk-11.0.15.9-1.windows.ojdkbuild.x86_64.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.30+7",
+      "firm": "OpenLogic",
+      "distro": "openlogic",
+      "filename": "openlogic-openjdk-11.0.30+7-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.30+7/openlogic-openjdk-11.0.30+7-windows-x64.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.16+8",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "OpenJDK11U-jdk_x64_windows_11.0.16_8.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases/download/jdk-11.0.16%2B8/OpenJDK11U-jdk_x64_windows_11.0.16_8.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.25",
+      "firm": "Red Hat",
+      "distro": "redhat",
+      "filename": "java-11-openjdk-11.0.25.0.9-1.win.jdk.x86_64.msi",
+      "archive_type": "msi",
+      "url": "https://developers.redhat.com/content-gateway/file/pub/openjdk/adoptium/October_2024/java-11-openjdk-11.0.25.0.9-1.win.jdk.x86_64.msi"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.25",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-11.0.25_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-11.0.25/sapmachine-jdk-11.0.25_windows-x64_bin.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_11.0.31.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.31.0/ibm-semeru-open-jdk_x64_windows_11.0.31.0.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31+11",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK11U-jdk_x64_windows_hotspot_11.0.31_11.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.31%2B11/OpenJDK11U-jdk_x64_windows_hotspot_11.0.31_11.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.15+1",
+      "firm": "Trava",
+      "distro": "trava",
+      "filename": "Openjdk11u-dcevm-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/download/dcevm-11.0.15%2B1/Openjdk11u-dcevm-windows-x64.zip"
+    },
+    {
+      "version": 11,
+      "java_version": "11.0.31+11",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu11.88.17-ca-jdk11.0.31-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu11.88.17-ca-jdk11.0.31-win_x64.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK12U-jdk_x64_windows_hotspot_12.0.2_10.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.2%2B10/OpenJDK12U-jdk_x64_windows_hotspot_12.0.2_10.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK12U-jdk_x64_windows_openj9_12.0.2_10_openj9-0.15.1.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.2%2B10_openj9-0.15.1/OpenJDK12U-jdk_x64_windows_openj9_12.0.2_10_openj9-0.15.1.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2+10",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk12.0.2-windows-amd64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/12.0.2/bellsoft-jdk12.0.2-windows-amd64.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-12-openjdk-12.0.2.9-1.windows.ojdkbuild.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-12-openjdk-12.0.2.9-1/java-12-openjdk-12.0.2.9-1.windows.ojdkbuild.x86_64.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2+10",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-12.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-12.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-12.0.2/sapmachine-jdk-12.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 12,
+      "java_version": "12.0.2+3",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu12.3.11-ca-jdk12.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu12.3.11-ca-jdk12.0.2-win_x64.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.2",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK13U-jdk_x64_windows_hotspot_13.0.2_8.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8/OpenJDK13U-jdk_x64_windows_hotspot_13.0.2_8.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.2",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK13U-jdk_x64_windows_openj9_13.0.2_8_openj9-0.18.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8_openj9-0.18.0/OpenJDK13U-jdk_x64_windows_openj9_13.0.2_8_openj9-0.18.0.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.2+9",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk13.0.2+9-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/13.0.2+9/bellsoft-jdk13.0.2+9-windows-amd64-full.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.4",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-13-openjdk-13.0.4.8-1.windows.ojdkbuild.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-13-openjdk-13.0.4.8-1/java-13-openjdk-13.0.4.8-1.windows.ojdkbuild.x86_64.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.2+8",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-13.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk13.0.2/d4173c853231432d94f001e99d882ca7/8/GPL/openjdk-13.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-13.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-13.0.2/sapmachine-jdk-13.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 13,
+      "java_version": "13.0.14+5",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu13.54.17-ca-jdk13.0.14-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu13.54.17-ca-jdk13.0.14-win_x64.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK14U-jdk_x64_windows_hotspot_14.0.2_12.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12/OpenJDK14U-jdk_x64_windows_hotspot_14.0.2_12.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK14U-jdk_x64_windows_openj9_14.0.2_12_openj9-0.21.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12_openj9-0.21.0/OpenJDK14U-jdk_x64_windows_openj9_14.0.2_12_openj9-0.21.0.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2+13",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk14.0.2+13-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/14.0.2+13/bellsoft-jdk14.0.2+13-windows-amd64-full.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-14-openjdk-14.0.2.12-1.windows.ojdkbuild.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-14-openjdk-14.0.2.12-1/java-14-openjdk-14.0.2.12-1.windows.ojdkbuild.x86_64.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2+12",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-14.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-14.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-14.0.2/sapmachine-jdk-14.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 14,
+      "java_version": "14.0.2+12",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu14.29.23-ca-jdk14.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu14.29.23-ca-jdk14.0.2-win_x64.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.2",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK15U-jdk_x64_windows_hotspot_15.0.2_7.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_windows_hotspot_15.0.2_7.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.2",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK15U-jdk_x64_windows_openj9_15.0.2_7_openj9-0.24.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7_openj9-0.24.0/OpenJDK15U-jdk_x64_windows_openj9_15.0.2_7_openj9-0.24.0.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-15-x64-windows-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/latest/amazon-corretto-15-x64-windows-jdk.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.2+10",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk15.0.2+10-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/15.0.2+10/bellsoft-jdk15.0.2+10-windows-amd64-full.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.2",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-15-openjdk-15.0.2.7-1.windows.ojdkbuild.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-15-openjdk-15.0.2.7-1/java-15-openjdk-15.0.2.7-1.windows.ojdkbuild.x86_64.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.2+7",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-15.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk15.0.2/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-15.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-15.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-15.0.2/sapmachine-jdk-15.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 15,
+      "java_version": "15.0.10+5",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu15.46.17-ca-jdk15.0.10-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu15.46.17-ca-jdk15.0.10-win_x64.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.1",
+      "firm": "AOJ",
+      "distro": "aoj",
+      "filename": "OpenJDK16U-jdk_x64_windows_hotspot_16.0.1_9.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk-16.0.1%2B9/OpenJDK16U-jdk_x64_windows_hotspot_16.0.1_9.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.1",
+      "firm": "AOJ OpenJ9",
+      "distro": "aoj_openj9",
+      "filename": "OpenJDK16U-jdk_x64_windows_openj9_16.0.1_9_openj9-0.26.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk-16.0.1%2B9_openj9-0.26.0/OpenJDK16U-jdk_x64_windows_openj9_16.0.1_9_openj9-0.26.0.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2+7",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-16.0.2.7.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/16.0.2.7.1/amazon-corretto-16.0.2.7.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2+7",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk16.0.2+7-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/16.0.2+7/bellsoft-jdk16.0.2+7-windows-amd64-full.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2",
+      "firm": "Microsoft",
+      "distro": "microsoft",
+      "filename": "microsoft-jdk-16.0.2.7.1-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-windows-x64.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2+7",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-16.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk16.0.2/d4a915d82b4c4fbb9bde534da945d746/7/GPL/openjdk-16.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-16.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-16.0.2/sapmachine-jdk-16.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_16.0.2_7_openj9-0.27.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru16-binaries/releases/download/jdk-16.0.2%2B7_openj9-0.27.0/ibm-semeru-open-jdk_x64_windows_16.0.2_7_openj9-0.27.0.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2+7",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK16U-jdk_x64_windows_hotspot_16.0.2_7.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin16-binaries/releases/download/jdk-16.0.2%2B7/OpenJDK16U-jdk_x64_windows_hotspot_16.0.2_7.zip"
+    },
+    {
+      "version": 16,
+      "java_version": "16.0.2+7",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu16.32.15-ca-jdk16.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-jdk16.0.2-win_x64.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-17.0.19.10.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/17.0.19.10.1/amazon-corretto-17.0.19.10.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.18",
+      "firm": "Dragonwell",
+      "distro": "dragonwell",
+      "filename": "Alibaba_Dragonwell_Standard_17.0.18.0.19.8_x64_windows.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/dragonwell-project/dragonwell17/releases/download/dragonwell-standard-17.0.18.0.19%2B8_jdk-17.0.18-ga/Alibaba_Dragonwell_Standard_17.0.18.0.19.8_x64_windows.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.14+136722",
+      "firm": "JetBrains",
+      "distro": "jetbrains",
+      "filename": "jbrsdk_jcef-17.0.14-windows-x64-b1367.22.zip",
+      "archive_type": "zip",
+      "url": "https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-17.0.14-windows-x64-b1367.22.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19+1",
+      "firm": "Kona",
+      "distro": "kona",
+      "filename": "TencentKona-17.0.19.b1_jdk_windows-x86_64_signed.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/Tencent/TencentKona-17/releases/download/TencentKona-17.0.19/TencentKona-17.0.19.b1_jdk_windows-x86_64_signed.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19+11",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk17.0.19+11-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/17.0.19+11/bellsoft-jdk17.0.19+11-windows-amd64-full.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19",
+      "firm": "Microsoft",
+      "distro": "microsoft",
+      "filename": "microsoft-jdk-17.0.19-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://aka.ms/download-jdk/microsoft-jdk-17.0.19-windows-x64.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.3",
+      "firm": "OJDKBuild",
+      "distro": "ojdk_build",
+      "filename": "java-17-openjdk-17.0.3.0.6-1.jre.win.x86_64.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ojdkbuild/ojdkbuild/releases/download/java-17-openjdk-17.0.3.0.6-1/java-17-openjdk-17.0.3.0.6-1.jre.win.x86_64.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.18+8",
+      "firm": "OpenLogic",
+      "distro": "openlogic",
+      "filename": "openlogic-openjdk-17.0.18+8-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/17.0.18+8/openlogic-openjdk-17.0.18+8-windows-x64.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.12",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-17.0.12_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/17/archive/jdk-17.0.12_windows-x64_bin.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.2+8",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-17.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.16+8",
+      "firm": "Red Hat",
+      "distro": "redhat",
+      "filename": "java-17-openjdk-17.0.16.0.8-1.win.jdk.x86_64.msi",
+      "archive_type": "msi",
+      "url": "https://developers.redhat.com/content-gateway/file/pub/openjdk/adoptium/July_2025/java-17-openjdk-17.0.16.0.8-1.win.jdk.x86_64.msi"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-17.0.19_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-17.0.19/sapmachine-jdk-17.0.19_windows-x64_bin.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_17.0.19.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.19.0/ibm-semeru-open-jdk_x64_windows_17.0.19.0.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19+10",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK17U-jdk_x64_windows_hotspot_17.0.19_10.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.19%2B10/OpenJDK17U-jdk_x64_windows_hotspot_17.0.19_10.zip"
+    },
+    {
+      "version": 17,
+      "java_version": "17.0.19+10",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu17.66.19-ca-jdk17.0.19-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu17.66.19-ca-jdk17.0.19-win_x64.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2+9",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-18.0.2.9.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/18.0.2.9.1/amazon-corretto-18.0.2.9.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2.1+1",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk18.0.2.1+1-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/18.0.2.1+1/bellsoft-jdk18.0.2.1+1-windows-amd64-full.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-18.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/18/archive/jdk-18.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2.1+1",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-18.0.2.1_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk18.0.2.1/db379da656dc47308e138f21b33976fa/1/GPL/openjdk-18.0.2.1_windows-x64_bin.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2.1",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-18.0.2.1_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-18.0.2.1/sapmachine-jdk-18.0.2.1_windows-x64_bin.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_18.0.2_9_openj9-0.33.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.2%2B9_openj9-0.33.0/ibm-semeru-open-jdk_x64_windows_18.0.2_9_openj9-0.33.0.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2.1+1",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK18U-jdk_x64_windows_hotspot_18.0.2.1_1.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.2.1%2B1/OpenJDK18U-jdk_x64_windows_hotspot_18.0.2.1_1.zip"
+    },
+    {
+      "version": 18,
+      "java_version": "18.0.2.1+1",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu18.32.13-ca-jdk18.0.2.1-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu18.32.13-ca-jdk18.0.2.1-win_x64.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2+7",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-19.0.2.7.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/19.0.2.7.1/amazon-corretto-19.0.2.7.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2+9",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk19.0.2+9-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/19.0.2+9/bellsoft-jdk19.0.2+9-windows-amd64-full.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-19.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/19/archive/jdk-19.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2+7",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-19.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk19.0.2/fdb695a9d9064ad6b064dc6df578380c/7/GPL/openjdk-19.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-19.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-19.0.2/sapmachine-jdk-19.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_19.0.2_7_openj9-0.37.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_x64_windows_19.0.2_7_openj9-0.37.0.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2+7",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK19U-jdk_x64_windows_hotspot_19.0.2_7.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin19-binaries/releases/download/jdk-19.0.2%2B7/OpenJDK19U-jdk_x64_windows_hotspot_19.0.2_7.zip"
+    },
+    {
+      "version": 19,
+      "java_version": "19.0.2+7",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu19.32.13-ca-jdk19.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu19.32.13-ca-jdk19.0.2-win_x64.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2+10",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-20.0.2.10.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/20.0.2.10.1/amazon-corretto-20.0.2.10.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2+10",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk20.0.2+10-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/20.0.2+10/bellsoft-jdk20.0.2+10-windows-amd64-full.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-20.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/20/archive/jdk-20.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2+9",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-20.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk20.0.2/6e380f22cbe7469fa75fb448bd903d8e/9/GPL/openjdk-20.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-20.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-20.0.2/sapmachine-jdk-20.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_20.0.2_9_openj9-0.40.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru20-binaries/releases/download/jdk-20.0.2%2B9_openj9-0.40.0/ibm-semeru-open-jdk_x64_windows_20.0.2_9_openj9-0.40.0.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2+9",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK20U-jdk_x64_windows_hotspot_20.0.2_9.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin20-binaries/releases/download/jdk-20.0.2%2B9/OpenJDK20U-jdk_x64_windows_hotspot_20.0.2_9.zip"
+    },
+    {
+      "version": 20,
+      "java_version": "20.0.2+9",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu20.32.11-ca-jdk20.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu20.32.11-ca-jdk20.0.2-win_x64.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-21.0.11.10.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/21.0.11.10.1/amazon-corretto-21.0.11.10.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.10",
+      "firm": "Dragonwell",
+      "distro": "dragonwell",
+      "filename": "Alibaba_Dragonwell_Extended_21.0.10.0.10.7_x64_windows.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/dragonwell-project/dragonwell21/releases/download/dragonwell-extended-21.0.10.0.10%2B7_jdk-21.0.10-ga/Alibaba_Dragonwell_Extended_21.0.10.0.10.7_x64_windows.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.10+1163110",
+      "firm": "JetBrains",
+      "distro": "jetbrains",
+      "filename": "jbrsdk_jcef-21.0.10-windows-x64-b1163.110.zip",
+      "archive_type": "zip",
+      "url": "https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-21.0.10-windows-x64-b1163.110.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11+1",
+      "firm": "Kona",
+      "distro": "kona",
+      "filename": "TencentKona-21.0.11.b1_jdk_windows-x86_64_signed.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/Tencent/TencentKona-21/releases/download/TencentKona-21.0.11/TencentKona-21.0.11.b1_jdk_windows-x86_64_signed.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11+11",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk21.0.11+11-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/21.0.11+11/bellsoft-jdk21.0.11+11-windows-amd64-full.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11",
+      "firm": "Microsoft",
+      "distro": "microsoft",
+      "filename": "microsoft-jdk-21.0.11-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://aka.ms/download-jdk/microsoft-jdk-21.0.11-windows-x64.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.10+7",
+      "firm": "OpenLogic",
+      "distro": "openlogic",
+      "filename": "openlogic-openjdk-21.0.10+7-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/21.0.10+7/openlogic-openjdk-21.0.10+7-windows-x64.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-21.0.11_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/21/archive/jdk-21.0.11_windows-x64_bin.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.2+13",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-21.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.8+9",
+      "firm": "Red Hat",
+      "distro": "redhat",
+      "filename": "java-21-openjdk-21.0.8.0.9-1.win.jdk.x86_64.msi",
+      "archive_type": "msi",
+      "url": "https://developers.redhat.com/content-gateway/file/pub/openjdk/adoptium/July_2025/java-21-openjdk-21.0.8.0.9-1.win.jdk.x86_64.msi"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-21.0.11_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-21.0.11/sapmachine-jdk-21.0.11_windows-x64_bin.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_21.0.11.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru21-binaries/releases/download/jdk-21.0.11.0/ibm-semeru-open-jdk_x64_windows_21.0.11.0.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11+10",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK21U-jdk_x64_windows_hotspot_21.0.11_10.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jdk_x64_windows_hotspot_21.0.11_10.zip"
+    },
+    {
+      "version": 21,
+      "java_version": "21.0.11+10",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu21.50.15-ca-jdk21.0.11-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu21.50.15-ca-jdk21.0.11-win_x64.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2+9",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-22.0.2.9.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/22.0.2.9.1/amazon-corretto-22.0.2.9.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2+11",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk22.0.2+11-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/22.0.2+11/bellsoft-jdk22.0.2+11-windows-amd64-full.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2",
+      "firm": "OpenLogic",
+      "distro": "openlogic",
+      "filename": "openlogic-openjdk-22.0.2+9-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-windows-x64.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-22.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/22/archive/jdk-22.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2+9",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-22.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk22.0.2/c9ecb94cd31b495da20a27d4581645e8/9/GPL/openjdk-22.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-22.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-22.0.2/sapmachine-jdk-22.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_22.0.2_9_openj9-0.46.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru22-binaries/releases/download/jdk-22.0.2%2B9_openj9-0.46.0/ibm-semeru-open-jdk_x64_windows_22.0.2_9_openj9-0.46.0.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2+9",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK22U-jdk_x64_windows_hotspot_22.0.2_9.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_x64_windows_hotspot_22.0.2_9.zip"
+    },
+    {
+      "version": 22,
+      "java_version": "22.0.2+9",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu22.32.15-ca-jdk22.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu22.32.15-ca-jdk22.0.2-win_x64.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2+7",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-23.0.2.7.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/23.0.2.7.1/amazon-corretto-23.0.2.7.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2+9",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk23.0.2+9-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/23.0.2+9/bellsoft-jdk23.0.2+9-windows-amd64-full.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-23.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/23/archive/jdk-23.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2+7",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-23.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk23.0.2/6da2a6609d6e406f85c491fcb119101b/7/GPL/openjdk-23.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-23.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-23.0.2/sapmachine-jdk-23.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_23.0.2_7_openj9-0.49.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23.0.2%2B7_openj9-0.49.0/ibm-semeru-open-jdk_x64_windows_23.0.2_7_openj9-0.49.0.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2+7",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK23U-jdk_x64_windows_hotspot_23.0.2_7.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2%2B7/OpenJDK23U-jdk_x64_windows_hotspot_23.0.2_7.zip"
+    },
+    {
+      "version": 23,
+      "java_version": "23.0.2+7",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu23.32.11-ca-jdk23.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu23.32.11-ca-jdk23.0.2-win_x64.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2+12",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-24.0.2.12.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/24.0.2.12.1/amazon-corretto-24.0.2.12.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2+12",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk24.0.2+12-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/24.0.2+12/bellsoft-jdk24.0.2+12-windows-amd64-full.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-24.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/24/archive/jdk-24.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2+12",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-24.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk24.0.2/fdc5d0102fe0414db21410ad5834341f/12/GPL/openjdk-24.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-24.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-24.0.2/sapmachine-jdk-24.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_24.0.2_12_openj9-0.54.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru24-binaries/releases/download/jdk-24.0.2%2B12_openj9-0.54.0/ibm-semeru-open-jdk_x64_windows_24.0.2_12_openj9-0.54.0.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2+12",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK24U-jdk_x64_windows_hotspot_24.0.2_12.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin24-binaries/releases/download/jdk-24.0.2%2B12/OpenJDK24U-jdk_x64_windows_hotspot_24.0.2_12.zip"
+    },
+    {
+      "version": 24,
+      "java_version": "24.0.2+12",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu24.32.13-ca-jdk24.0.2-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu24.32.13-ca-jdk24.0.2-win_x64.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-25.0.3.9.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/25.0.3.9.1/amazon-corretto-25.0.3.9.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3",
+      "firm": "Dragonwell",
+      "distro": "dragonwell",
+      "filename": "Alibaba_Dragonwell_Standard_25.0.3.0.3.9_x64_windows.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/dragonwell-project/dragonwell25/releases/download/dragonwell-standard-25.0.3.0.3%2B9_jdk-25.0.3-ga/Alibaba_Dragonwell_Standard_25.0.3.0.3.9_x64_windows.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3+47560",
+      "firm": "JetBrains",
+      "distro": "jetbrains",
+      "filename": "jbrsdk_jcef-25.0.3-windows-x64-b475.60.zip",
+      "archive_type": "zip",
+      "url": "https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-25.0.3-windows-x64-b475.60.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3+11",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk25.0.3+11-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/25.0.3+11/bellsoft-jdk25.0.3+11-windows-amd64-full.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3",
+      "firm": "Microsoft",
+      "distro": "microsoft",
+      "filename": "microsoft-jdk-25.0.3-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://aka.ms/download-jdk/microsoft-jdk-25.0.3-windows-x64.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.2+10",
+      "firm": "OpenLogic",
+      "distro": "openlogic",
+      "filename": "openlogic-openjdk-25.0.2+10-windows-x64.zip",
+      "archive_type": "zip",
+      "url": "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/25.0.2+10/openlogic-openjdk-25.0.2+10-windows-x64.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-25.0.3_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/25/archive/jdk-25.0.3_windows-x64_bin.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.2+10",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-25.0.2_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk25.0.2/b1e0dfa218384cb9959bdcb897162d4e/10/GPL/openjdk-25.0.2_windows-x64_bin.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-25.0.3_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-25.0.3/sapmachine-jdk-25.0.3_windows-x64_bin.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_25.0.3.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru25-binaries/releases/download/jdk-25.0.3.0/ibm-semeru-open-jdk_x64_windows_25.0.3.0.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3+9",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK25U-jdk_x64_windows_hotspot_25.0.3_9.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jdk_x64_windows_hotspot_25.0.3_9.zip"
+    },
+    {
+      "version": 25,
+      "java_version": "25.0.3+9",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu25.34.17-ca-jdk25.0.3-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu25.34.17-ca-jdk25.0.3-win_x64.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1",
+      "firm": "Corretto",
+      "distro": "corretto",
+      "filename": "amazon-corretto-26.0.1.8.1-windows-x64-jdk.zip",
+      "archive_type": "zip",
+      "url": "https://corretto.aws/downloads/resources/26.0.1.8.1/amazon-corretto-26.0.1.8.1-windows-x64-jdk.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1+10",
+      "firm": "Liberica",
+      "distro": "liberica",
+      "filename": "bellsoft-jdk26.0.1+10-windows-amd64-full.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/bell-sw/Liberica/releases/download/26.0.1+10/bellsoft-jdk26.0.1+10-windows-amd64-full.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1",
+      "firm": "Oracle",
+      "distro": "oracle",
+      "filename": "jdk-26.0.1_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.oracle.com/java/26/archive/jdk-26.0.1_windows-x64_bin.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1+8",
+      "firm": "Oracle OpenJDK",
+      "distro": "oracle_open_jdk",
+      "filename": "openjdk-26.0.1_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://download.java.net/java/GA/jdk26.0.1/458fda22e4c54d5ba572ab8d2b22eb83/8/GPL/openjdk-26.0.1_windows-x64_bin.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1",
+      "firm": "SAP Machine",
+      "distro": "sap_machine",
+      "filename": "sapmachine-jdk-26.0.1_windows-x64_bin.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/SAP/SapMachine/releases/download/sapmachine-26.0.1/sapmachine-jdk-26.0.1_windows-x64_bin.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1",
+      "firm": "Semeru",
+      "distro": "semeru",
+      "filename": "ibm-semeru-open-jdk_x64_windows_26.0.1.0.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/ibmruntimes/semeru26-binaries/releases/download/jdk-26.0.1.0/ibm-semeru-open-jdk_x64_windows_26.0.1.0.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26+35",
+      "firm": "Temurin",
+      "distro": "temurin",
+      "filename": "OpenJDK26U-jdk_x64_windows_hotspot_26_35.zip",
+      "archive_type": "zip",
+      "url": "https://github.com/adoptium/temurin26-binaries/releases/download/jdk-26%2B35/OpenJDK26U-jdk_x64_windows_hotspot_26_35.zip"
+    },
+    {
+      "version": 26,
+      "java_version": "26.0.1+8",
+      "firm": "Zulu",
+      "distro": "zulu",
+      "filename": "zulu26.30.11-ca-jdk26.0.1-win_x64.zip",
+      "archive_type": "zip",
+      "url": "https://cdn.azul.com/zulu/bin/zulu26.30.11-ca-jdk26.0.1-win_x64.zip"
+    }
+  ]
+}
