@@ -1,9 +1,9 @@
 use anyhow::Result;
 use std::collections::HashSet;
 use std::path::PathBuf;
+use std::time::Duration;
 
-/// Embedded fallback — compiled into the binary so jir works standalone.
-const EMBEDDED_INDEX: &str = include_str!("../bat/version.json");
+const VERSION_INDEX_URL: &str = "https://rururunu.github.io/Jir/bat/version.json";
 
 pub fn jdks_base() -> PathBuf {
     std::env::current_exe()
@@ -47,26 +47,15 @@ pub fn installed_keys() -> HashSet<String> {
 }
 
 pub fn load_version_json() -> Result<serde_json::Value> {
-    let exe_dir = std::env::current_exe()
-        .ok()
-        .and_then(|p| p.parent().map(|d| d.to_path_buf()));
+    let client = reqwest::blocking::Client::builder()
+        .timeout(Duration::from_secs(20))
+        .build()?;
 
-    let mut candidates = vec![
-        PathBuf::from("bat/version.json"),
-        PathBuf::from("../bat/version.json"),
-    ];
-    if let Some(dir) = exe_dir {
-        candidates.push(dir.join("bat/version.json"));
-    }
+    let text = client
+        .get(VERSION_INDEX_URL)
+        .send()?
+        .error_for_status()?
+        .text()?;
 
-    // external file takes priority (allows updates without recompile)
-    for path in &candidates {
-        if path.exists() {
-            let content = std::fs::read_to_string(path)?;
-            return Ok(serde_json::from_str(&content)?);
-        }
-    }
-
-    // fall back to the embedded index
-    Ok(serde_json::from_str(EMBEDDED_INDEX)?)
+    Ok(serde_json::from_str(&text)?)
 }

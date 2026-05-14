@@ -54,13 +54,13 @@ cargo metadata --no-deps --format-version 1
 
 ## 版本索引
 
-Java 版本索引文件：
+`jir` 会从下面的地址加载 Java 版本索引：
 
 ```text
-bat/version.json
+https://rururunu.github.io/Jir/bat/version.json
 ```
 
-该文件会在编译时内嵌到二进制中。如果可执行文件旁存在外部 `bat/version.json`，则优先使用外部文件。
+仓库中的 `bat/version.json` 仍然保留，作为发布到该地址的源文件。
 
 ## 图形化安装器
 

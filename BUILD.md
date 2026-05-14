@@ -54,13 +54,13 @@ The release binary is named `jir-cli.exe` before packaging. The installer rename
 
 ## Version Index
 
-The Java version index lives at:
+`jir` loads the Java version index from:
 
 ```text
-bat/version.json
+https://rururunu.github.io/Jir/bat/version.json
 ```
 
-It is embedded into the binary during compilation. If an external `bat/version.json` exists beside the executable, that external file takes priority.
+The repository still keeps `bat/version.json` as the source file used for publishing that hosted index.
 
 ## GUI Installer
 
