@@ -1,0 +1,73 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to build, without the leading v
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          if ('${{ github.event_name }}' -eq 'workflow_dispatch') {
+            $v = '${{ github.event.inputs.version }}'
+          } else {
+            $v = '${{ github.ref_name }}'.TrimStart('v')
+          }
+          if (-not $v) { throw 'Could not resolve a version.' }
+          "value=$v" >> $env:GITHUB_OUTPUT
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      # Cargo.toml is the single source of truth; a tag that disagrees with it
+      # would publish an archive whose binary reports a different version.
+      - name: Check version matches Cargo.toml
+        shell: pwsh
+        run: |
+          $declared = (Select-String -Path Cargo.toml -Pattern '^version\s*=\s*"(.+)"').Matches[0].Groups[1].Value
+          if ($declared -ne '${{ steps.version.outputs.value }}') {
+            throw "Tag/source version mismatch: Cargo.toml says $declared, this run is for ${{ steps.version.outputs.value }}."
+          }
+
+      - name: Build portable archive
+        shell: pwsh
+        run: .\release\build-portable.ps1 -Version ${{ steps.version.outputs.value }}
+
+      - name: Publish release assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $v = '${{ steps.version.outputs.value }}'
+          $asset = "dist/jir-$v-windows-x64.zip"
+          if (-not (Test-Path $asset)) { throw "Missing $asset" }
+          gh release create "v$v" `
+            $asset `
+            "dist/SHA256SUMS.txt" `
+            "release/install.ps1" `
+            --title "jir $v" `
+            --generate-notes
+
+      # Chocolatey is pushed from release\build-chocolatey.ps1 with an API key,
+      # outside CI: a failed push would leave the release half-published.
+      - name: Build Chocolatey package (artifact only)
+        shell: pwsh
+        run: .\release\build-chocolatey.ps1 -Version ${{ steps.version.outputs.value }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jir-${{ steps.version.outputs.value }}-chocolatey
+          path: dist/jir.${{ steps.version.outputs.value }}.nupkg

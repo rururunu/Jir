@@ -1,12 +1,14 @@
-use anyhow::Result;
+use anyhow::{Context, Result};
 use colored::Colorize;
 use terminal_size::{terminal_size, Width};
 
-use crate::jdk::{current_version, installed_key, installed_keys, jdks_base, load_version_json};
+use crate::jdk::{
+    current_version, installed_key, installed_keys, installed_specs, load_version_json, read_meta,
+};
 
-pub fn run(installable: bool) -> Result<()> {
+pub fn run(installable: bool, filter: Option<&str>) -> Result<()> {
     if installable {
-        list_installable()
+        list_installable(filter)
     } else {
         list_installed()
     }
@@ -14,30 +16,44 @@ pub fn run(installable: bool) -> Result<()> {
 
 // ── jir ls -i ────────────────────────────────────────────────────────────────
 
-fn list_installable() -> Result<()> {
+fn list_installable(filter: Option<&str>) -> Result<()> {
+    let filter = filter
+        .map(|f| f.trim().parse::<u64>())
+        .transpose()
+        .context("filter must be a Java feature version, e.g. `jir ls -i 21`")?;
+
     let data = load_version_json()?;
-    let packages = data["packages"].as_array().unwrap();
+    let packages = data["packages"].as_array().context("invalid version index")?;
     let installed = installed_keys();
     let current = current_version();
 
     let items: Vec<(String, Style)> = packages
         .iter()
+        .filter(|pkg| filter.map_or(true, |v| pkg["version"].as_u64() == Some(v)))
         .map(|pkg| {
             let ver = pkg["version"].as_u64().unwrap_or(0);
             let distro = pkg["distro"].as_str().unwrap_or("");
             let key = installed_key(distro, ver);
             let spec = format!("{}:{}", ver, distro);
+            let build = pkg["java_version"].as_str();
 
-            let (label, style) = if current.as_deref() == Some(&spec) {
-                (format!("  {}:{} *", ver, distro), Style::Current)
+            // `*` = active, `+` = installed but not active, blank = not installed.
+            // Distinct glyphs so the state is readable without color.
+            let (marker, style) = if current.as_deref() == Some(&spec) {
+                (Some('*'), Style::Current)
             } else if installed.contains(&key) {
-                (format!("  {}:{} *", ver, distro), Style::Installed)
+                (Some('+'), Style::Installed)
             } else {
-                (format!("  {}:{}", ver, distro), Style::Normal)
+                (None, Style::Normal)
             };
-            (label, style)
+            (spec_label(ver, distro, build, marker), style)
         })
         .collect();
+
+    if items.is_empty() {
+        println!("{}", "No matching versions in the index.".yellow());
+        return Ok(());
+    }
 
     print_columns(&items);
     Ok(())
@@ -46,46 +62,47 @@ fn list_installable() -> Result<()> {
 // ── jir ls ───────────────────────────────────────────────────────────────────
 
 fn list_installed() -> Result<()> {
-    let base = jdks_base();
     let current = current_version();
-    let keys = installed_keys();
+    let specs = installed_specs();
 
-    if keys.is_empty() {
+    if specs.is_empty() {
         println!("{}", "No Java versions installed.".yellow());
         println!("{}", "  run `jir list -i` to see available versions".dimmed());
         return Ok(());
     }
 
-    let Ok(ver_entries) = std::fs::read_dir(&base) else { return Ok(()) };
-
-    let mut items: Vec<(String, Style)> = Vec::new();
-
-    for ver_entry in ver_entries.filter_map(|e| e.ok()) {
-        let ver_path = ver_entry.path();
-        if !ver_path.is_dir() { continue; }
-        let ver_name = ver_entry.file_name().into_string().unwrap_or_default();
-        if ver_name.parse::<u64>().is_err() { continue; }
-
-        let Ok(dist_entries) = std::fs::read_dir(&ver_path) else { continue };
-        for dist_entry in dist_entries.filter_map(|e| e.ok()) {
-            if !dist_entry.path().is_dir() { continue; }
-            let dist_name = dist_entry.file_name().into_string().unwrap_or_default();
+    let items: Vec<(String, Style)> = specs
+        .iter()
+        .map(|(ver_name, dist_name)| {
             let spec = format!("{}:{}", ver_name, dist_name);
+            let meta = read_meta(*ver_name, dist_name);
 
-            let (label, style) = if current.as_deref() == Some(&spec) {
-                (format!("  {}:{} *", ver_name, dist_name), Style::Current)
+            let (marker, style) = if current.as_deref() == Some(&spec) {
+                (Some('*'), Style::Current)
             } else {
-                (format!("  {}:{}", ver_name, dist_name), Style::Normal)
+                (None, Style::Normal)
             };
-            items.push((label, style));
-        }
-    }
+            (spec_label(*ver_name, dist_name, meta.java_version.as_deref(), marker), style)
+        })
+        .collect();
 
     print_columns(&items);
     Ok(())
 }
 
 // ── rendering ────────────────────────────────────────────────────────────────
+
+/// "  21:temurin     21.0.11+11 *" — build and marker are omitted when unknown.
+fn spec_label(version: u64, distro: &str, build: Option<&str>, marker: Option<char>) -> String {
+    let mut label = format!("  {}:{:<14}", version, distro);
+    if let Some(build) = build.filter(|b| !b.is_empty()) {
+        label.push_str(&format!(" {:<12}", build));
+    }
+    if let Some(marker) = marker {
+        label.push_str(&format!(" {}", marker));
+    }
+    label.trim_end().to_string()
+}
 
 enum Style {
     Normal,

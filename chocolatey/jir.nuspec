@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- __VERSION__ and __CHECKSUM__ are substituted by release\build-chocolatey.ps1.
+     Keep the tokens in the source so a packed version can never drift from the
+     archive it actually points at. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>jir</id>
+    <version>__VERSION__</version>
+    <title>jir</title>
+    <authors>runu</authors>
+    <owners>runu</owners>
+    <projectUrl>https://github.com/rururunu/Jir</projectUrl>
+    <projectSourceUrl>https://github.com/rururunu/Jir</projectSourceUrl>
+    <packageSourceUrl>https://github.com/rururunu/Jir</packageSourceUrl>
+    <docsUrl>https://github.com/rururunu/Jir/blob/main/README.md</docsUrl>
+    <bugTrackerUrl>https://github.com/rururunu/Jir/issues</bugTrackerUrl>
+    <!-- Chocolatey CLI rejects the <license type="expression"> element (CHCU0002). -->
+    <licenseUrl>https://github.com/rururunu/Jir/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Install several JDKs side by side and switch JAVA_HOME with one command.</summary>
+    <description>jir installs JDKs side by side and points a single stable path (home\occupy) at
+the active one, so JAVA_HOME is set once and switching Java becomes a single command. On Windows
+the switch is a directory junction, so no JDK is ever copied.
+
+Installed JDKs live in %LOCALAPPDATA%\jir\home, outside the Chocolatey package directory, so
+`choco upgrade jir` replaces the tool without touching your Java runtimes. Uninstalling jir keeps
+that directory for the same reason.</description>
+    <tags>java jdk java-home version-manager temurin corretto zulu openjdk microsoft cli</tags>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

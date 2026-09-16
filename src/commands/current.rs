@@ -1,10 +1,10 @@
 use anyhow::Result;
 use colored::Colorize;
 
-use crate::jdk::{current_version, jdks_base, load_version_json, occupy_dir};
+use crate::jdk::{current_info, jdks_base, occupy_dir, read_meta};
 
 pub fn run() -> Result<()> {
-    let Some(spec) = current_version() else {
+    let Some((spec, marker_firm)) = current_info() else {
         println!("{}", "No active JDK.".yellow());
         println!("{}", "  run `jir use <version:distro>` to activate one".dimmed());
         return Ok(());
@@ -19,37 +19,22 @@ pub fn run() -> Result<()> {
     let java_bin = occupy_dir()
         .join("bin")
         .join(if cfg!(windows) { "java.exe" } else { "java" });
-    let vendor = vendor_name(version, distro)?;
+    // everything below is local state — `jir current` must work offline
+    let meta = read_meta(version.parse().unwrap_or(0), distro);
+    let vendor = marker_firm.or(meta.firm).unwrap_or_else(|| distro.to_string());
 
     println!();
     println!("  {}  {}", "◆ Current".blue().bold(), spec.blue().bold());
     println!("  {:<10} {}", "vendor".dimmed(), vendor);
+    if let Some(build) = meta.java_version {
+        println!("  {:<10} {}", "build".dimmed(), build);
+    }
     println!("  {:<10} {}", "source".dimmed(), source.display());
     println!("  {:<10} {}", "JAVA_HOME".dimmed(), occupy_dir().display().to_string().green());
     println!("  {:<10} {}", "binary".dimmed(), format_binary(&java_bin));
     println!();
 
     Ok(())
-}
-
-fn vendor_name(version: &str, distro: &str) -> Result<String> {
-    let version = version.parse::<u64>().ok();
-    let data = load_version_json()?;
-    let packages = data["packages"].as_array();
-
-    Ok(packages
-        .and_then(|packages| {
-            packages.iter().find(|p| {
-                p["version"].as_u64() == version
-                    && p["distro"]
-                        .as_str()
-                        .map(|d| d.eq_ignore_ascii_case(distro))
-                        .unwrap_or(false)
-            })
-        })
-        .and_then(|p| p["firm"].as_str())
-        .unwrap_or(distro)
-        .to_string())
 }
 
 fn format_binary(path: &std::path::Path) -> String {

@@ -2,9 +2,9 @@ use anyhow::{Context, Result};
 use colored::Colorize;
 use std::io::{self, Write};
 
-use crate::jdk::{current_version, jdks_base};
+use crate::jdk::{clear_current, current_version, jdks_base, remove_meta};
 
-pub fn run(spec: &str) -> Result<()> {
+pub fn run(spec: &str, force: bool) -> Result<()> {
     let (version, owned_distro): (&str, String);
 
     if !spec.contains(':') {
@@ -31,7 +31,8 @@ pub fn run(spec: &str) -> Result<()> {
         return Ok(());
     }
 
-    if current_version().as_deref() == Some(&full_spec) {
+    let was_active = current_version().as_deref() == Some(&full_spec);
+    if was_active {
         println!("{} {} is currently active via `jir use`", "warn:".yellow().bold(), full_spec);
     }
 
@@ -41,18 +42,31 @@ pub fn run(spec: &str) -> Result<()> {
         full_spec,
         target.display()
     );
-    print!("  Confirm? [y/N] ");
-    io::stdout().flush()?;
+    if !force {
+        print!("  Confirm? [y/N] ");
+        io::stdout().flush()?;
 
-    let mut input = String::new();
-    io::stdin().read_line(&mut input)?;
+        let mut input = String::new();
+        io::stdin().read_line(&mut input)?;
 
-    if input.trim().eq_ignore_ascii_case("y") {
-        std::fs::remove_dir_all(&target)
-            .context(format!("failed to remove {}", target.display()))?;
-        println!("{} {}", "Uninstalled".green().bold(), full_spec);
-    } else {
-        println!("{}", "Cancelled.".dimmed());
+        if !input.trim().eq_ignore_ascii_case("y") {
+            println!("{}", "Cancelled.".dimmed());
+            return Ok(());
+        }
+    }
+
+    std::fs::remove_dir_all(&target)
+        .context(format!("failed to remove {}", target.display()))?;
+    remove_meta(version.parse().unwrap_or(0), distro);
+    if was_active {
+        // the occupy junction now points at a removed directory: drop it and
+        // the marker so JAVA_HOME is not left dangling.
+        crate::commands::switch::remove_occupy()?;
+        clear_current();
+    }
+    println!("{} {}", "Uninstalled".green().bold(), full_spec);
+    if was_active {
+        println!("{}", "  JAVA_HOME is now unset — run `jir use` to activate another JDK".dimmed());
     }
 
     Ok(())

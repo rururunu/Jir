@@ -67,25 +67,61 @@ https://rururunu.github.io/Jir/bat/version.json
 构建独立 Windows 图形化安装器：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1
+powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.0
 ```
 
-默认输出：
+输出：
 
 ```text
-dist/jir-0.1.0-windows-x64-gui-setup.exe
+dist/jir-0.2.0-windows-x64-gui-setup.exe
 ```
 
 如果输出文件被占用，脚本会生成带时间戳的安装器：
 
 ```text
-dist/jir-0.1.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
+dist/jir-0.2.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 ```
 
 安装器会内嵌：
 
 - `jir.exe`
 - `uninstall.exe`
+
+## 发布流水线
+
+`jir` 有三个安装渠道：Chocolatey、PowerShell 一行安装（curl/wget），以及图形化安装器。前两者共用同一个产物——便携包，而图形化安装器不产出它。
+
+```powershell
+# 1. 生成便携包与校验和文件，后面几步都依赖它
+powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.0
+
+# 2. 打包 Chocolatey 包（读取第 1 步产出的校验和）
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0
+
+# 3. 推送到社区源（需要 API key）
+$env:CHOCO_API_KEY = '<your key>'
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0 -Push
+
+# 4. 打 tag，由 CI 发布一行安装所依赖的资产
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+输出：
+
+```text
+dist/jir-0.2.0-windows-x64.zip      便携包（jir.exe、LICENSE、README.md）
+dist/SHA256SUMS.txt                 便携包的 SHA-256
+dist/jir.0.2.0.nupkg                Chocolatey 包
+```
+
+版本号仍然只以 `Cargo.toml` 为唯一来源。`.github/workflows/release.yml` 会在任何 `v*` tag 上发布，并在 tag 与 `Cargo.toml` 不一致时中止，避免发布出一个自报版本不同的二进制。
+
+`chocolatey/jir.nuspec` 与 `chocolatey/tools/*.ps1` 里保留 `__VERSION__` 和 `__CHECKSUM__` 占位符，由 `release/build-chocolatey.ps1` 在打包时替换。这样打出的版本不可能指向一个并非由它构建的归档，也不需要任何人手工拷贝哈希。
+
+关于 Chocolatey 社区源：`choco push` 会进入人工审核队列，推送后不会立即可安装；每个 release 都需要新的版本号，推送前建议先本地 `choco pack` 验证。
+
+图形化安装器被有意排除在这条流水线之外：`.gitignore` 忽略了 `/packaging`，干净检出里没有 `build-installer.ps1` 可运行。要发布它，请在含有该目录的工作区里手动构建，或取消忽略该目录。
 
 ## 安装器行为
 
@@ -122,17 +158,28 @@ dist/jir-0.1.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 
 ```text
 jir/
+├── .github/
+│   └── workflows/
+│       └── release.yml
 ├── bat/
 │   └── version.json
+├── chocolatey/
+│   ├── jir.nuspec
+│   └── tools/
+│       ├── chocolateyinstall.ps1
+│       └── chocolateyuninstall.ps1
 ├── packaging/
 │   └── windows/
 │       ├── build-installer.ps1
 │       ├── JirSetup.cs
 │       └── JirUninstall.cs
+├── release/
+│   ├── build-chocolatey.ps1
+│   ├── build-portable.ps1
+│   └── install.ps1
 ├── src/
 │   ├── commands/
 │   ├── cli.rs
-│   ├── help.rs
 │   ├── jdk.rs
 │   ├── main.rs
 │   └── prompt.rs

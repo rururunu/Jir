@@ -1,13 +1,13 @@
-use anyhow::Result;
+use anyhow::{Context, Result};
 use dialoguer::{Select, theme::ColorfulTheme};
 
-use crate::jdk::{installed_key, installed_keys, jdks_base, load_version_json};
+use crate::jdk::{installed_key, installed_keys, installed_specs, load_version_json};
 
 /// Interactive vendor picker for installable packages of a given version.
 /// Returns (distro, firm).
 pub fn pick_installable(version: u64) -> Result<Option<(String, String)>> {
     let data = load_version_json()?;
-    let packages = data["packages"].as_array().unwrap();
+    let packages = data["packages"].as_array().context("invalid version index")?;
 
     let installed = installed_keys();
 
@@ -46,32 +46,53 @@ pub fn pick_installable(version: u64) -> Result<Option<(String, String)>> {
 /// Interactive vendor picker among already-installed distros for a given version.
 /// Returns distro string.
 pub fn pick_installed(version: &str) -> Result<Option<String>> {
-    let base = jdks_base().join(version);
-    if !base.exists() {
-        anyhow::bail!("no installed versions found for Java {}", version);
-    }
+    let feature: u64 = version
+        .trim()
+        .parse()
+        .context("expected a Java feature version, e.g. `jir use 21`")?;
 
-    let mut distros: Vec<String> = std::fs::read_dir(&base)?
-        .filter_map(|e| e.ok())
-        .filter(|e| e.path().is_dir())
-        .filter_map(|e| e.file_name().into_string().ok())
+    let mut distros: Vec<String> = installed_specs()
+        .into_iter()
+        .filter(|(v, _)| *v == feature)
+        .map(|(_, distro)| distro)
         .collect();
 
-    distros.sort();
-
     if distros.is_empty() {
-        anyhow::bail!("no installed vendors found for Java {}", version);
+        anyhow::bail!("no installed vendors found for Java {}", feature);
     }
 
     if distros.len() == 1 {
-        return Ok(Some(distros.remove(0)));
+        return Ok(Some(distros.swap_remove(0)));
     }
 
     let selection = Select::with_theme(&ColorfulTheme::default())
-        .with_prompt(format!("Select vendor for Java {}", version))
+        .with_prompt(format!("Select vendor for Java {}", feature))
         .items(&distros)
         .default(0)
         .interact_opt()?;
 
     Ok(selection.map(|i| distros[i].clone()))
+}
+
+/// Interactive picker across every installed JDK. Returns "version:distro".
+pub fn pick_any_installed() -> Result<Option<String>> {
+    let labels: Vec<String> = installed_specs()
+        .into_iter()
+        .map(|(version, distro)| format!("{}:{}", version, distro))
+        .collect();
+
+    if labels.is_empty() {
+        anyhow::bail!("no Java versions installed — run `jir i <version>` first");
+    }
+    if labels.len() == 1 {
+        return Ok(Some(labels[0].clone()));
+    }
+
+    let selection = Select::with_theme(&ColorfulTheme::default())
+        .with_prompt("Select a JDK to activate")
+        .items(&labels)
+        .default(0)
+        .interact_opt()?;
+
+    Ok(selection.map(|i| labels[i].clone()))
 }

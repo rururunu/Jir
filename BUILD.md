@@ -67,25 +67,73 @@ The repository still keeps `bat/version.json` as the source file used for publis
 Build the standalone Windows GUI installer:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1
+powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.0
 ```
 
-Default output:
+Output:
 
 ```text
-dist/jir-0.1.0-windows-x64-gui-setup.exe
+dist/jir-0.2.0-windows-x64-gui-setup.exe
 ```
 
 If the output file is locked, the script writes a timestamped installer instead:
 
 ```text
-dist/jir-0.1.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
+dist/jir-0.2.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 ```
 
 The installer embeds:
 
 - `jir.exe`
 - `uninstall.exe`
+
+## Release Pipeline
+
+Three channels install `jir`: Chocolatey, a PowerShell one-liner (curl/wget), and
+the GUI installer. The first two share a single artifact — the portable archive —
+which the GUI installer does not produce.
+
+```powershell
+# 1. Portable archive + checksum file. Everything else depends on this.
+powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.0
+
+# 2. Chocolatey package. Reads the checksum produced by step 1.
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0
+
+# 3. Push to the community feed (requires an API key).
+$env:CHOCO_API_KEY = '<your key>'
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0 -Push
+
+# 4. Tag the release and let CI publish the assets the one-liner installs from.
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+Output:
+
+```text
+dist/jir-0.2.0-windows-x64.zip      portable archive (jir.exe, LICENSE, README.md)
+dist/SHA256SUMS.txt                 SHA-256 of the archive
+dist/jir.0.2.0.nupkg                Chocolatey package
+```
+
+`Cargo.toml` stays the single source of truth for the version.
+`.github/workflows/release.yml` publishes on any `v*` tag and aborts when the tag
+disagrees with `Cargo.toml`, so a release can never ship a binary reporting a
+different version.
+
+`chocolatey/jir.nuspec` and `chocolatey/tools/*.ps1` keep `__VERSION__` and
+`__CHECKSUM__` placeholders; `release/build-chocolatey.ps1` substitutes them at
+pack time. That keeps a packed version from ever pointing at an archive it was not
+built from, without anyone copying hashes by hand.
+
+Notes on the Chocolatey feed: `choco push` goes to community moderation, so the
+package is not installable the moment it is pushed. Each release needs a new
+version, and `choco pack` should be run locally first.
+
+The GUI installer is deliberately not in this pipeline: `.gitignore` excludes
+`/packaging`, so a clean checkout has no `build-installer.ps1` to run. Publish it
+from a working tree that has it, or stop ignoring that directory.
 
 ## Installer Behavior
 
@@ -122,17 +170,28 @@ If system environment variables point to `jir`, the uninstaller can restart as a
 
 ```text
 jir/
+├── .github/
+│   └── workflows/
+│       └── release.yml
 ├── bat/
 │   └── version.json
+├── chocolatey/
+│   ├── jir.nuspec
+│   └── tools/
+│       ├── chocolateyinstall.ps1
+│       └── chocolateyuninstall.ps1
 ├── packaging/
 │   └── windows/
 │       ├── build-installer.ps1
 │       ├── JirSetup.cs
 │       └── JirUninstall.cs
+├── release/
+│   ├── build-chocolatey.ps1
+│   ├── build-portable.ps1
+│   └── install.ps1
 ├── src/
 │   ├── commands/
 │   ├── cli.rs
-│   ├── help.rs
 │   ├── jdk.rs
 │   ├── main.rs
 │   └── prompt.rs
