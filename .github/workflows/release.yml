@@ -60,14 +60,3 @@ jobs:
             "release/install.ps1" `
             --title "jir $v" `
             --generate-notes
-
-      # Chocolatey is pushed from release\build-chocolatey.ps1 with an API key,
-      # outside CI: a failed push would leave the release half-published.
-      - name: Build Chocolatey package (artifact only)
-        shell: pwsh
-        run: .\release\build-chocolatey.ps1 -Version ${{ steps.version.outputs.value }}
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: jir-${{ steps.version.outputs.value }}-chocolatey
-          path: dist/jir.${{ steps.version.outputs.value }}.nupkg

@@ -18,18 +18,10 @@
 
 ## 安装
 
-### Chocolatey
-
-```powershell
-choco install jir
-```
-
-包会把 `jir` 加到 `PATH`，并把 `JIR_HOME` 指向 `%LOCALAPPDATA%\jir\home`（在包目录之外），因此 `choco upgrade jir` 不会动你已经下载的 JDK，卸载时也会保留它们。
-
 ### PowerShell 一行安装（curl / wget）
 
 ```powershell
-iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.1/install.ps1')
+iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.2/install.ps1')
 ```
 
 这条命令会下载便携包、用 Release 里的 `SHA256SUMS.txt` 校验 SHA-256、解压到 `%LOCALAPPDATA%\jir\bin`，把该目录加入用户 `PATH`，并设置 `JIR_HOME`。不需要管理员权限。
@@ -39,8 +31,8 @@ iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/r
 如果你想手动下载并解压：
 
 ```powershell
-curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.1/jir-0.2.1-windows-x64.zip
-curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.1/SHA256SUMS.txt
+curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.2/jir-0.2.2-windows-x64.zip
+curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.2/SHA256SUMS.txt
 Get-FileHash .\jir.zip -Algorithm SHA256   # 与 SHA256SUMS.txt 对比
 Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 ```
@@ -48,7 +40,7 @@ Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 用 Git for Windows 自带的 `wget`：
 
 ```bash
-wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.1/jir-0.2.1-windows-x64.zip
+wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.2/jir-0.2.2-windows-x64.zip
 ```
 
 无论用哪种方式，装好 JDK 后把 `JAVA_HOME` 指向 `%LOCALAPPDATA%\jir\home\occupy` 即可——`jir` 会让这个路径始终指向当前激活的 JDK。
@@ -58,7 +50,7 @@ wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.1/jir-0.2
 使用或构建 Windows 图形化安装器：
 
 ```text
-dist/jir-0.2.1-windows-x64-gui-setup.exe
+dist/jir-0.2.2-windows-x64-gui-setup.exe
 ```
 
 安装器可以选择安装目录，也可以帮你把 `jir` 加到 `PATH`，以及设置 `JAVA_HOME`。
