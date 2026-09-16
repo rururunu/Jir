@@ -32,7 +32,7 @@ never touches your downloaded JDKs. Uninstalling keeps them too.
 ### PowerShell one-liner (curl / wget)
 
 ```powershell
-iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.0/install.ps1')
+iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.1/install.ps1')
 ```
 
 This downloads the portable archive, verifies its SHA-256 against the release's
@@ -49,8 +49,8 @@ your user `PATH`, and sets `JIR_HOME`. It needs no administrator rights.
 To fetch and unpack it by hand instead:
 
 ```powershell
-curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.0/jir-0.2.0-windows-x64.zip
-curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.0/SHA256SUMS.txt
+curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.1/jir-0.2.1-windows-x64.zip
+curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.1/SHA256SUMS.txt
 Get-FileHash .\jir.zip -Algorithm SHA256   # compare with SHA256SUMS.txt
 Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 ```
@@ -58,7 +58,7 @@ Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 With `wget` from Git for Windows, the download is:
 
 ```bash
-wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.0/jir-0.2.0-windows-x64.zip
+wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.1/jir-0.2.1-windows-x64.zip
 ```
 
 Either way, once you have installed a JDK, point `JAVA_HOME` at
@@ -70,7 +70,7 @@ is active.
 Download or build the Windows GUI installer:
 
 ```text
-dist/jir-0.2.0-windows-x64-gui-setup.exe
+dist/jir-0.2.1-windows-x64-gui-setup.exe
 ```
 
 The installer lets you choose where `jir` lives. It can also add `jir` to `PATH` and set `JAVA_HOME` for you.

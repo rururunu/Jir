@@ -1,10 +1,12 @@
-# Packs the Chocolatey package for an already-built release archive.
+# Packs the Chocolatey package for a published GitHub release.
 #
-#   powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0
-#   powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0 -Push
+#   powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.1
+#   powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.1 -Push
 #
-# Run release\build-portable.ps1 first: the checksum is read from its output so
-# the package can never point at an archive it was not built from.
+# The checksum describes the bytes users actually download, so it is computed
+# from the asset at the release URL - never from a local build.
+# Compress-Archive stamps timestamps, so rebuilding the same sources produces
+# different bytes, and a local hash silently breaks every install.
 
 param(
     [Parameter(Mandatory = $true)][string]$Version,
@@ -16,13 +18,25 @@ $ErrorActionPreference = "Stop"
 
 $Root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $Dist = Join-Path $Root "dist"
-$Sums = Join-Path $Dist "SHA256SUMS.txt"
-if (!(Test-Path $Sums)) { throw "$Sums is missing - run release\build-portable.ps1 -Version $Version first." }
 
 $Archive = "jir-$Version-windows-x64.zip"
-$Line    = Select-String -Path $Sums -SimpleMatch $Archive | Select-Object -First 1
-if (-not $Line) { throw "SHA256SUMS.txt has no entry for $Archive." }
-$Checksum = ($Line.Line -split "\s+")[0].ToLower()
+$Url     = "https://github.com/rururunu/Jir/releases/download/v$Version/$Archive"
+
+$Temp = Join-Path ([System.IO.Path]::GetTempPath()) "jir-choco-$([guid]::NewGuid().ToString('N'))"
+New-Item -ItemType Directory -Path $Temp -Force | Out-Null
+try {
+    $Downloaded = Join-Path $Temp $Archive
+    Write-Host "Downloading $Url" -ForegroundColor Cyan
+    try {
+        Invoke-WebRequest -Uri $Url -OutFile $Downloaded -UseBasicParsing
+    } catch {
+        throw "Cannot fetch v$Version from GitHub - publish the release (git push origin v$Version) before packing Chocolatey. $($_.Exception.Message)"
+    }
+    $Checksum = (Get-FileHash $Downloaded -Algorithm SHA256).Hash.ToLower()
+} finally {
+    Remove-Item $Temp -Recurse -Force -ErrorAction SilentlyContinue
+}
+Write-Host "Release checksum: $Checksum"
 
 $Stage = Join-Path $Dist "chocolatey"
 if (Test-Path $Stage) { Remove-Item $Stage -Recurse -Force }
@@ -42,6 +56,24 @@ if ($LASTEXITCODE -ne 0) { throw "choco pack failed with exit code $LASTEXITCODE
 
 $Nupkg = Join-Path $Dist "jir.$Version.nupkg"
 if (!(Test-Path $Nupkg)) { throw "Package was not created: $Nupkg" }
+
+# Inspect what was packed: a leftover placeholder or a hash that does not match
+# the release is exactly how the first 0.2.0 push shipped broken.
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$Zip = [IO.Compression.ZipFile]::OpenRead($Nupkg)
+try {
+    $Entry = $Zip.Entries | Where-Object { $_.FullName -eq "tools/chocolateyinstall.ps1" } | Select-Object -First 1
+    if (-not $Entry) { throw "tools/chocolateyinstall.ps1 is missing from $Nupkg" }
+    $Reader = New-Object IO.StreamReader($Entry.Open())
+    $Packed = $Reader.ReadToEnd()
+    $Reader.Close()
+} finally {
+    $Zip.Dispose()
+}
+if ($Packed -match "__CHECKSUM__|__VERSION__") { throw "Placeholders were not substituted in the packed install script." }
+if ($Packed -notmatch [regex]::Escape($Checksum)) { throw "The packed install script does not carry the release checksum $Checksum." }
+Write-Host "Verified: packed script carries the release checksum." -ForegroundColor Green
+
 Write-Host ""
 Write-Host "Chocolatey package: $Nupkg" -ForegroundColor Green
 

@@ -67,19 +67,19 @@ https://rururunu.github.io/Jir/bat/version.json
 构建独立 Windows 图形化安装器：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.0
+powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.1
 ```
 
 输出：
 
 ```text
-dist/jir-0.2.0-windows-x64-gui-setup.exe
+dist/jir-0.2.1-windows-x64-gui-setup.exe
 ```
 
 如果输出文件被占用，脚本会生成带时间戳的安装器：
 
 ```text
-dist/jir-0.2.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
+dist/jir-0.2.1-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 ```
 
 安装器会内嵌：
@@ -93,26 +93,26 @@ dist/jir-0.2.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 
 ```powershell
 # 1. 生成便携包与校验和文件，后面几步都依赖它
-powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.0
+powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.1
 
 # 2. 打包 Chocolatey 包（读取第 1 步产出的校验和）
-powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.1
 
 # 3. 推送到社区源（需要 API key）
 $env:CHOCO_API_KEY = '<your key>'
-powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0 -Push
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.1 -Push
 
 # 4. 打 tag，由 CI 发布一行安装所依赖的资产
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.2.1
+git push origin v0.2.1
 ```
 
 输出：
 
 ```text
-dist/jir-0.2.0-windows-x64.zip      便携包（jir.exe、LICENSE、README.md）
+dist/jir-0.2.1-windows-x64.zip      便携包（jir.exe、LICENSE、README.md）
 dist/SHA256SUMS.txt                 便携包的 SHA-256
-dist/jir.0.2.0.nupkg                Chocolatey 包
+dist/jir.0.2.1.nupkg                Chocolatey 包
 ```
 
 版本号仍然只以 `Cargo.toml` 为唯一来源。`.github/workflows/release.yml` 会在任何 `v*` tag 上发布，并在 tag 与 `Cargo.toml` 不一致时中止，避免发布出一个自报版本不同的二进制。

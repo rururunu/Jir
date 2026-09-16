@@ -1,10 +1,10 @@
 # Builds the portable Windows x64 archive that the curl/wget and Chocolatey
 # channels install, together with the checksum file they verify against.
 #
-#   powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.0
+#   powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.1
 
 param(
-    [string]$Version = "0.2.0"
+    [string]$Version = "0.2.1"
 )
 
 $ErrorActionPreference = "Stop"

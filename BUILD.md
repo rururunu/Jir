@@ -67,19 +67,19 @@ The repository still keeps `bat/version.json` as the source file used for publis
 Build the standalone Windows GUI installer:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.0
+powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.1
 ```
 
 Output:
 
 ```text
-dist/jir-0.2.0-windows-x64-gui-setup.exe
+dist/jir-0.2.1-windows-x64-gui-setup.exe
 ```
 
 If the output file is locked, the script writes a timestamped installer instead:
 
 ```text
-dist/jir-0.2.0-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
+dist/jir-0.2.1-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 ```
 
 The installer embeds:
@@ -95,26 +95,26 @@ which the GUI installer does not produce.
 
 ```powershell
 # 1. Portable archive + checksum file. Everything else depends on this.
-powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.0
+powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.1
 
 # 2. Chocolatey package. Reads the checksum produced by step 1.
-powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.1
 
 # 3. Push to the community feed (requires an API key).
 $env:CHOCO_API_KEY = '<your key>'
-powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.0 -Push
+powershell -ExecutionPolicy Bypass -File .\release\build-chocolatey.ps1 -Version 0.2.1 -Push
 
 # 4. Tag the release and let CI publish the assets the one-liner installs from.
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.2.1
+git push origin v0.2.1
 ```
 
 Output:
 
 ```text
-dist/jir-0.2.0-windows-x64.zip      portable archive (jir.exe, LICENSE, README.md)
+dist/jir-0.2.1-windows-x64.zip      portable archive (jir.exe, LICENSE, README.md)
 dist/SHA256SUMS.txt                 SHA-256 of the archive
-dist/jir.0.2.0.nupkg                Chocolatey package
+dist/jir.0.2.1.nupkg                Chocolatey package
 ```
 
 `Cargo.toml` stays the single source of truth for the version.
