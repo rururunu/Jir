@@ -23,7 +23,6 @@ fn list_installable(filter: Option<&str>) -> Result<()> {
         .context("filter must be a Java feature version, e.g. `jir ls -i 21`")?;
 
     let data = load_version_json()?;
-    let lts = lts_releases(&data);
     let packages = data["packages"].as_array().context("invalid version index")?;
     let installed = installed_keys();
     let current = current_version();
@@ -56,54 +55,28 @@ fn list_installable(filter: Option<&str>) -> Result<()> {
     }
     specs.sort_by(|a, b| a.0.cmp(&b.0).then_with(|| a.1.cmp(&b.1)));
 
-    let any_lts = specs.iter().any(|(ver, _, _)| lts.contains(ver));
     let items: Vec<(String, Style)> = specs
         .into_iter()
-        .map(|(ver, distro, style)| {
-            (installable_label(ver, &distro, style, lts.contains(&ver)), style)
-        })
+        .map(|(ver, distro, style)| (installable_label(ver, &distro, style), style))
         .collect();
 
     print_columns(&items);
     if items.iter().any(|(_, style)| !matches!(style, Style::Normal)) {
         println!("{}", "  * active    + installed".dimmed());
     }
-    if any_lts {
-        println!("{}", "  ᴸᵀˢ long-term support".dimmed());
-    }
     Ok(())
 }
 
-/// Long-term-support feature versions, as published by the index itself.
-///
-/// `bat/update_version_json.py` writes `lts_releases` from Adoptium's
-/// `available_releases` endpoint. Reading it beats both alternatives: Foojay cannot
-/// answer the question at all — its `term_of_support` is a per-package field, so 14
-/// vendors report Java 21 as `sts` while 7 report Java 22 as `lts` — and a list
-/// compiled into this binary would silently rot the next time Oracle names an LTS.
-///
-/// An index predating the field yields an empty list: the grid then carries no
-/// marks rather than inventing them.
-fn lts_releases(data: &serde_json::Value) -> Vec<u64> {
-    data["lts_releases"]
-        .as_array()
-        .map(|releases| releases.iter().filter_map(|one| one.as_u64()).collect())
-        .unwrap_or_default()
-}
-
-/// ` 21ᴸᵀˢ:temurin *` — the whole spec is the cell, so the grid stays flat and one
-/// column always means one version. The mark is a superscript on the feature
-/// version: it flags the long-term-support cadence without spending a column the
-/// way a spelled-out badge did. The state glyph stays last, so what `jir use`
+/// ` 21:temurin *` — the whole spec is the cell, so the grid stays flat and one
+/// column always means one version. The state glyph stays last, so what `jir use`
 /// controls is still read last.
-fn installable_label(ver: u64, distro: &str, style: Style, lts: bool) -> String {
+fn installable_label(ver: u64, distro: &str, style: Style) -> String {
     let marker = match style {
         Style::Current => " *",
         Style::Installed => " +",
         Style::Normal => "",
     };
-    let mark = if lts { "ᴸᵀˢ" } else { "" };
-    format!("  {}{}:{}{}", ver, mark, distro, marker)
+    format!("  {}:{}{}", ver, distro, marker)
 }
 
 // ── jir ls ───────────────────────────────────────────────────────────────────
@@ -229,63 +202,14 @@ mod tests {
     }
 
     fn cell(version: u64, distro: &str, style: Style) -> (String, Style) {
-        (installable_label(version, distro, style, false), style)
+        (installable_label(version, distro, style), style)
     }
 
     #[test]
     fn an_installed_version_is_marked_in_its_own_cell() {
-        assert_eq!(installable_label(21, "temurin", Style::Normal, false), "  21:temurin");
-        assert_eq!(installable_label(21, "temurin", Style::Installed, false), "  21:temurin +");
-        assert_eq!(installable_label(21, "temurin", Style::Current, false), "  21:temurin *");
-    }
-
-    #[test]
-    fn an_lts_version_carries_a_superscript_mark_on_its_version() {
-        assert_eq!(installable_label(21, "temurin", Style::Normal, true), "  21ᴸᵀˢ:temurin");
-        assert_eq!(installable_label(21, "temurin", Style::Current, true), "  21ᴸᵀˢ:temurin *");
-        assert_eq!(installable_label(8, "aoj", Style::Installed, true), "  8ᴸᵀˢ:aoj +");
-        assert_eq!(installable_label(22, "temurin", Style::Normal, false), "  22:temurin");
-    }
-
-    #[test]
-    fn the_superscript_mark_is_shorter_than_the_old_badge() {
-        // the point of the mark is that it costs less of the cell than " LTS" did
-        let marked = installable_label(21, "temurin", Style::Normal, true);
-        let plain = installable_label(21, "temurin", Style::Normal, false);
-        assert_eq!(marked.chars().count() - plain.chars().count(), 3);
-    }
-
-    #[test]
-    fn the_lts_set_is_read_from_the_index() {
-        let index = serde_json::json!({ "lts_releases": [8, 11, 17, 21, 25] });
-        let lts = lts_releases(&index);
-
-        for ver in [8, 11, 17, 21, 25] {
-            assert!(lts.contains(&ver), "Java {ver} is an LTS release");
-        }
-        // the rest of 6..27, including the releases some vendors mislabel as lts
-        for ver in [6, 7, 9, 10, 12, 13, 14, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27] {
-            assert!(!lts.contains(&ver), "Java {ver} is not an LTS release");
-        }
-    }
-
-    #[test]
-    fn an_index_without_the_lts_field_marks_nothing() {
-        // a cached index from before the field existed must not invent marks
-        let index = serde_json::json!({ "packages": [] });
-        assert!(lts_releases(&index).is_empty());
-    }
-
-    #[test]
-    fn a_row_mixing_lts_and_plain_cells_still_pads_to_one_width() {
-        let items = vec![
-            (installable_label(21, "temurin", Style::Normal, true), Style::Normal),
-            (installable_label(22, "zulu", Style::Normal, false), Style::Normal),
-        ];
-        let rows = columns(&items, 200);
-        let width = rows[0][0].0.chars().count();
-        assert!(rows[0].iter().all(|(text, _)| text.chars().count() == width));
-        assert!(rows[0][0].0.contains("ᴸᵀˢ"), "the mark was dropped: {:?}", rows[0][0].0);
+        assert_eq!(installable_label(21, "temurin", Style::Normal), "  21:temurin");
+        assert_eq!(installable_label(21, "temurin", Style::Installed), "  21:temurin +");
+        assert_eq!(installable_label(21, "temurin", Style::Current), "  21:temurin *");
     }
 
     #[test]
