@@ -60,7 +60,7 @@ The release binary is named `jir-cli.exe` before packaging. The installer rename
 https://rururunu.github.io/Jir/bat/version.json
 ```
 
-The repository still keeps `bat/version.json` as the source file used for publishing that hosted index.
+The repository still keeps `bat/version.json` as the source file used for publishing that hosted index; `.github/workflows/pages.yml` assembles it next to the `site/` landing page into the Pages artifact, so pushing to `main` republishes it.
 
 ## GUI Installer
 

@@ -60,7 +60,7 @@ cargo metadata --no-deps --format-version 1
 https://rururunu.github.io/Jir/bat/version.json
 ```
 
-仓库中的 `bat/version.json` 仍然保留，作为发布到该地址的源文件。
+仓库中的 `bat/version.json` 仍然保留，作为发布到该地址的源文件；`.github/workflows/pages.yml` 会把它和 `site/` 官网一起组装进 Pages 产物，推送 `main` 即自动重新发布。
 
 ## 图形化安装器
 

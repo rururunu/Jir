@@ -1,13 +1,6 @@
 <div align="center">
 
-<pre>
-     ██╗ ██╗ ██████╗ 
-     ██║ ██║ ██╔══██╗
-     ██║ ██║ ██████╔╝
-██   ██║ ██║ ██╔══██╗
-╚█████╔╝ ██║ ██║  ██║
- ╚════╝  ╚═╝ ╚═╝  ╚═╝
-</pre>
+<img src="assets/jir.png" alt="jir" width="200">
 
 **Manage Java runtimes fast.**
 
@@ -16,6 +9,8 @@
 ![license](https://img.shields.io/badge/license-MIT-3A3030?style=flat-square)
 
 **文档语言：** 中文 | [English](README.md)
+
+**官网：** [rururunu.github.io/Jir](https://rururunu.github.io/Jir/)
 
 </div>
 
