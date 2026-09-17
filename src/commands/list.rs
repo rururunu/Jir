@@ -3,7 +3,7 @@ use colored::Colorize;
 use terminal_size::{terminal_size, Width};
 
 use crate::jdk::{
-    current_version, installed_key, installed_keys, installed_specs, load_version_json, read_meta,
+    current_version, installed_key, installed_keys, installed_specs, load_version_json,
 };
 
 pub fn run(installable: bool, filter: Option<&str>) -> Result<()> {
@@ -23,45 +23,87 @@ fn list_installable(filter: Option<&str>) -> Result<()> {
         .context("filter must be a Java feature version, e.g. `jir ls -i 21`")?;
 
     let data = load_version_json()?;
+    let lts = lts_releases(&data);
     let packages = data["packages"].as_array().context("invalid version index")?;
     let installed = installed_keys();
     let current = current_version();
 
-    let mut items: Vec<Item> = packages
+    let mut specs: Vec<(u64, String, Style)> = packages
         .iter()
         .filter(|pkg| filter.map_or(true, |v| pkg["version"].as_u64() == Some(v)))
         .map(|pkg| {
             let ver = pkg["version"].as_u64().unwrap_or(0);
-            let distro = pkg["distro"].as_str().unwrap_or("");
-            let key = installed_key(distro, ver);
+            let distro = pkg["distro"].as_str().unwrap_or("").to_string();
+            let key = installed_key(&distro, ver);
             let spec = format!("{}:{}", ver, distro);
 
             // `*` = active, `+` = installed but not active, blank = not installed.
             // Distinct glyphs so the state is readable without color.
-            let marker = if current.as_deref() == Some(&spec) {
-                Some('*')
+            let style = if current.as_deref() == Some(&spec) {
+                Style::Current
             } else if installed.contains(&key) {
-                Some('+')
+                Style::Installed
             } else {
-                None
+                Style::Normal
             };
-
-            Item {
-                version: ver,
-                distro: distro.to_string(),
-                build: pkg["java_version"].as_str().map(str::to_string),
-                marker,
-            }
+            (ver, distro, style)
         })
         .collect();
 
-    if items.is_empty() {
+    if specs.is_empty() {
         println!("{}", "No matching versions in the index.".yellow());
         return Ok(());
     }
+    specs.sort_by(|a, b| a.0.cmp(&b.0).then_with(|| a.1.cmp(&b.1)));
 
-    render(&mut items);
+    let any_lts = specs.iter().any(|(ver, _, _)| lts.contains(ver));
+    let items: Vec<(String, Style)> = specs
+        .into_iter()
+        .map(|(ver, distro, style)| {
+            (installable_label(ver, &distro, style, lts.contains(&ver)), style)
+        })
+        .collect();
+
+    print_columns(&items);
+    if items.iter().any(|(_, style)| !matches!(style, Style::Normal)) {
+        println!("{}", "  * active    + installed".dimmed());
+    }
+    if any_lts {
+        println!("{}", "  ᴸᵀˢ long-term support".dimmed());
+    }
     Ok(())
+}
+
+/// Long-term-support feature versions, as published by the index itself.
+///
+/// `bat/update_version_json.py` writes `lts_releases` from Adoptium's
+/// `available_releases` endpoint. Reading it beats both alternatives: Foojay cannot
+/// answer the question at all — its `term_of_support` is a per-package field, so 14
+/// vendors report Java 21 as `sts` while 7 report Java 22 as `lts` — and a list
+/// compiled into this binary would silently rot the next time Oracle names an LTS.
+///
+/// An index predating the field yields an empty list: the grid then carries no
+/// marks rather than inventing them.
+fn lts_releases(data: &serde_json::Value) -> Vec<u64> {
+    data["lts_releases"]
+        .as_array()
+        .map(|releases| releases.iter().filter_map(|one| one.as_u64()).collect())
+        .unwrap_or_default()
+}
+
+/// ` 21ᴸᵀˢ:temurin *` — the whole spec is the cell, so the grid stays flat and one
+/// column always means one version. The mark is a superscript on the feature
+/// version: it flags the long-term-support cadence without spending a column the
+/// way a spelled-out badge did. The state glyph stays last, so what `jir use`
+/// controls is still read last.
+fn installable_label(ver: u64, distro: &str, style: Style, lts: bool) -> String {
+    let marker = match style {
+        Style::Current => " *",
+        Style::Installed => " +",
+        Style::Normal => "",
+    };
+    let mark = if lts { "ᴸᵀˢ" } else { "" };
+    format!("  {}{}:{}{}", ver, mark, distro, marker)
 }
 
 // ── jir ls ───────────────────────────────────────────────────────────────────
@@ -76,35 +118,31 @@ fn list_installed() -> Result<()> {
         return Ok(());
     }
 
-    let mut items: Vec<Item> = specs
+    // Everything listed here is installed, so the only state left to show is which
+    // one `jir use` has activated: a flat `version:distro` grid, as in 0.1.0.
+    let items: Vec<(String, Style)> = specs
         .into_iter()
-        .map(|(ver_name, dist_name)| {
-            let spec = format!("{}:{}", ver_name, dist_name);
-            let meta = read_meta(ver_name, &dist_name);
-            let marker = if current.as_deref() == Some(&spec) {
-                Some('*')
-            } else {
-                None
-            };
-
-            Item { version: ver_name, distro: dist_name, build: meta.java_version, marker }
+        .map(|(version, distro)| {
+            let spec = format!("{}:{}", version, distro);
+            let active = current.as_deref() == Some(spec.as_str());
+            let style = if active { Style::Current } else { Style::Normal };
+            (installed_label(version, &distro, active), style)
         })
         .collect();
 
-    render(&mut items);
+    print_columns(&items);
+    if items.iter().any(|(_, style)| matches!(style, Style::Current)) {
+        println!("{}", "  * active".dimmed());
+    }
     Ok(())
 }
 
-// ── rendering ────────────────────────────────────────────────────────────────
-
-/// One JDK as listed: feature version, vendor, build, and how it relates to the
-/// local install.
-struct Item {
-    version: u64,
-    distro: String,
-    build: Option<String>,
-    marker: Option<char>,
+/// `  21:temurin *` — the whole spec is the cell, as in 0.1.0.
+fn installed_label(version: u64, distro: &str, active: bool) -> String {
+    format!("  {}:{}{}", version, distro, if active { " *" } else { "" })
 }
+
+// ── rendering ────────────────────────────────────────────────────────────────
 
 #[derive(Clone, Copy)]
 enum Style {
@@ -114,14 +152,6 @@ enum Style {
 }
 
 impl Style {
-    fn of(marker: Option<char>) -> Self {
-        match marker {
-            Some('*') => Style::Current,
-            Some('+') => Style::Installed,
-            _ => Style::Normal,
-        }
-    }
-
     fn paint(self, text: &str) -> String {
         match self {
             Style::Current => text.blue().bold().to_string(),
@@ -131,102 +161,40 @@ impl Style {
     }
 }
 
-/// A color-free table row: `gutter` names the Java version, `cells` hold the
-/// vendors sharing it. Cells are padded, so aligning by concatenation is safe.
-struct Line {
-    gutter: String,
-    cells: Vec<(String, Style)>,
+/// Terminal width, with the floor the grids rely on.
+fn term_width() -> usize {
+    terminal_size().map(|(Width(w), _)| w as usize).unwrap_or(80).max(24)
 }
 
-/// Vendors of one feature version share a row prefix instead of repeating the
-/// version in every cell. Padding each cell to the longest vendor in its group
-/// keeps the build and state columns from drifting right on long names.
-fn layout(items: &[Item], term_width: usize) -> Vec<Line> {
-    /// Breathing room between cells, kept inside the cell so the longest row
-    /// still separates its columns instead of running two vendors together.
-    const CELL_GAP: usize = 2;
-
-    let version_width = items.iter().map(|i| i.version.to_string().len()).max().unwrap_or(1);
-    // Only spend a column on the state glyph when something is installed.
-    let marker_width = if items.iter().any(|i| i.marker.is_some()) { 2 } else { 0 };
-    let gutter_width = 2 + version_width + 2;
-
-    let mut lines = Vec::new();
-    let mut start = 0;
-    while start < items.len() {
-        let version = items[start].version;
-        let len = items[start..].iter().take_while(|i| i.version == version).count();
-        let group = &items[start..start + len];
-
-        let distro_width = group.iter().map(|i| i.distro.chars().count()).max().unwrap_or(0);
-        let build_width = group
-            .iter()
-            .filter_map(|i| i.build.as_deref())
-            .map(str::len)
-            .max()
-            .unwrap_or(0);
-        let trailing = if build_width == 0 { 0 } else { build_width + 1 };
-        let cell_width = marker_width + distro_width + trailing + CELL_GAP;
-        let per_line = (term_width.saturating_sub(gutter_width) / cell_width).max(1);
-
-        for (row, chunk) in group.chunks(per_line).enumerate() {
-            let label = if row == 0 { version.to_string() } else { String::new() };
-            let cells = chunk
-                .iter()
-                .map(|item| (item_cell(item, marker_width, distro_width, build_width, cell_width), Style::of(item.marker)))
-                .collect();
-            lines.push(Line {
-                gutter: format!("  {:<width$}  ", label, width = version_width),
-                cells,
-            });
-        }
-        start += len;
-    }
-    lines
-}
-
-/// `"* temurin        21.0.11+11 "` — padded to `cell_width` so columns hold.
-fn item_cell(
-    item: &Item,
-    marker_width: usize,
-    distro_width: usize,
-    build_width: usize,
-    cell_width: usize,
-) -> String {
-    let mut cell = String::new();
-    if marker_width > 0 {
-        cell.push(item.marker.unwrap_or(' '));
-        cell.push(' ');
-    }
-    cell.push_str(&format!("{:<width$}", item.distro, width = distro_width));
-    if let Some(build) = &item.build {
-        cell.push_str(&format!(" {:<width$}", build, width = build_width));
-    }
-    format!("{:<width$}", cell, width = cell_width)
-}
-
-fn render(items: &mut [Item]) {
+/// Cells padded to one width and packed into as many columns as the terminal has
+/// room for — the flat `version:distro` grid both listings use now.
+fn columns(items: &[(String, Style)], term_width: usize) -> Vec<Vec<(String, Style)>> {
     if items.is_empty() {
-        return;
+        return Vec::new();
     }
-    items.sort_by(|a, b| a.version.cmp(&b.version).then_with(|| a.distro.cmp(&b.distro)));
+    let col_width = items.iter().map(|(text, _)| text.chars().count()).max().unwrap_or(0) + 2;
+    let num_cols = (term_width / col_width).max(1);
 
-    let term_width = terminal_size().map(|(Width(w), _)| w as usize).unwrap_or(80).max(24);
-    let marker = items.iter().any(|i| i.marker.is_some());
+    items
+        .chunks(num_cols)
+        .map(|chunk| {
+            chunk
+                .iter()
+                .map(|(text, style)| (format!("{:<width$}", text, width = col_width), *style))
+                .collect()
+        })
+        .collect()
+}
 
-    for line in &layout(items, term_width) {
-        print!("{}", line.gutter.cyan().bold());
-        let last = line.cells.len().saturating_sub(1);
-        for (i, (text, style)) in line.cells.iter().enumerate() {
+fn print_columns(items: &[(String, Style)]) {
+    for row in columns(items, term_width()) {
+        let last = row.len().saturating_sub(1);
+        for (i, (text, style)) in row.iter().enumerate() {
             // the padding that keeps columns apart is noise at the end of a row
             let text = if i == last { text.trim_end() } else { text.as_str() };
             print!("{}", style.paint(text));
         }
         println!();
-    }
-
-    if marker {
-        println!("{}", "  * active    + installed".dimmed());
     }
 }
 
@@ -234,83 +202,116 @@ fn render(items: &mut [Item]) {
 mod tests {
     use super::*;
 
-    fn item(version: u64, distro: &str, build: Option<&str>, marker: Option<char>) -> Item {
-        Item { version, distro: distro.to_string(), build: build.map(str::to_string), marker }
-    }
+    // ── the flat `version:distro` grids ──────────────────────────────────────
 
-    fn sorted(items: &mut [Item]) {
-        items.sort_by(|a, b| a.version.cmp(&b.version).then_with(|| a.distro.cmp(&b.distro)));
+    #[test]
+    fn an_active_installed_version_keeps_the_0_1_0_cell() {
+        assert_eq!(installed_label(21, "temurin", true), "  21:temurin *");
+        assert_eq!(installed_label(21, "corretto", false), "  21:corretto");
     }
 
     #[test]
-    fn every_cell_in_a_row_is_padded_to_the_same_width() {
-        let mut items = vec![
-            item(8, "aoj", Some("8.0.292"), None),
-            item(8, "graalvm_community", Some("8.0.10"), None),
-            item(8, "zulu", None, None),
-            item(17, "temurin", Some("17.0.20+8"), Some('*')),
+    fn the_installed_grid_is_flat_and_fits_the_terminal() {
+        let items: Vec<(String, Style)> = vec![
+            (installed_label(17, "temurin", false), Style::Normal),
+            (installed_label(21, "corretto", false), Style::Normal),
+            (installed_label(21, "temurin", true), Style::Current),
         ];
-        sorted(&mut items);
 
-        let lines = layout(&items, 78);
-        assert!(lines.iter().all(|line| line
-            .cells
-            .iter()
-            .all(|(text, _)| text.chars().count() == line.cells[0].0.chars().count())));
+        let rows = columns(&items, 60);
+        let width = rows[0][0].0.chars().count();
+        assert!(rows.iter().flatten().all(|(text, _)| text.chars().count() == width));
+        assert_eq!(rows.iter().flatten().count(), items.len());
+        for row in &rows {
+            let used: usize = row.iter().map(|(text, _)| text.chars().count()).sum();
+            assert!(used <= 60, "row overflowed the terminal: {used}");
+        }
+    }
+
+    fn cell(version: u64, distro: &str, style: Style) -> (String, Style) {
+        (installable_label(version, distro, style, false), style)
     }
 
     #[test]
-    fn a_long_vendor_does_not_shift_the_build_column() {
-        let mut items = vec![
-            item(8, "aoj", Some("8.0.292"), None),
-            item(8, "graalvm_community", Some("8.0.10"), None),
-        ];
-        sorted(&mut items);
-
-        let lines = layout(&items, 200);
-        let at = |text: &str| text.find("8.0.");
-        assert_eq!(at(&lines[0].cells[0].0), at(&lines[0].cells[1].0));
+    fn an_installed_version_is_marked_in_its_own_cell() {
+        assert_eq!(installable_label(21, "temurin", Style::Normal, false), "  21:temurin");
+        assert_eq!(installable_label(21, "temurin", Style::Installed, false), "  21:temurin +");
+        assert_eq!(installable_label(21, "temurin", Style::Current, false), "  21:temurin *");
     }
 
     #[test]
-    fn a_full_width_row_still_leaves_a_gap_between_cells() {
-        let mut items = vec![
-            item(8, "oracle_open_jdk", Some("8.0.342+7"), None),
-            item(8, "redhat", Some("8.0.345+1"), Some('+')),
-        ];
-        sorted(&mut items);
-
-        // both vendors and both builds hit the group maximum, so nothing is left
-        // over from padding — the gap has to be part of the cell itself
-        let lines = layout(&items, 200);
-        assert!(lines[0].cells[0].0.ends_with("  "), "cells ran together: {:?}", lines[0].cells[0].0);
+    fn an_lts_version_carries_a_superscript_mark_on_its_version() {
+        assert_eq!(installable_label(21, "temurin", Style::Normal, true), "  21ᴸᵀˢ:temurin");
+        assert_eq!(installable_label(21, "temurin", Style::Current, true), "  21ᴸᵀˢ:temurin *");
+        assert_eq!(installable_label(8, "aoj", Style::Installed, true), "  8ᴸᵀˢ:aoj +");
+        assert_eq!(installable_label(22, "temurin", Style::Normal, false), "  22:temurin");
     }
 
     #[test]
-    fn versions_are_named_once_per_group_and_rows_fit_the_terminal() {
-        let mut items = vec![
-            item(8, "zulu", Some("8.0.502+7"), None),
-            item(9, "aoj", Some("9.0.4"), None),
-        ];
-        sorted(&mut items);
+    fn the_superscript_mark_is_shorter_than_the_old_badge() {
+        // the point of the mark is that it costs less of the cell than " LTS" did
+        let marked = installable_label(21, "temurin", Style::Normal, true);
+        let plain = installable_label(21, "temurin", Style::Normal, false);
+        assert_eq!(marked.chars().count() - plain.chars().count(), 3);
+    }
 
-        let lines = layout(&items, 40);
-        assert_eq!(lines.len(), 2); // one vendor per version, one row each
-        assert!(lines[0].gutter.starts_with("  8"));
-        assert!(lines[1].gutter.starts_with("  9"));
-        for line in &lines {
-            let width = line.gutter.chars().count()
-                + line.cells.iter().map(|(text, _)| text.chars().count()).sum::<usize>();
-            assert!(width <= 40, "row overflowed the terminal: {width}");
+    #[test]
+    fn the_lts_set_is_read_from_the_index() {
+        let index = serde_json::json!({ "lts_releases": [8, 11, 17, 21, 25] });
+        let lts = lts_releases(&index);
+
+        for ver in [8, 11, 17, 21, 25] {
+            assert!(lts.contains(&ver), "Java {ver} is an LTS release");
+        }
+        // the rest of 6..27, including the releases some vendors mislabel as lts
+        for ver in [6, 7, 9, 10, 12, 13, 14, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27] {
+            assert!(!lts.contains(&ver), "Java {ver} is not an LTS release");
         }
     }
 
     #[test]
-    fn the_state_column_is_only_reserved_when_something_is_installed() {
-        let plain = vec![item(21, "temurin", Some("21.0.11+11"), None)];
-        assert!(layout(&plain, 200)[0].cells[0].0.starts_with("temurin"));
+    fn an_index_without_the_lts_field_marks_nothing() {
+        // a cached index from before the field existed must not invent marks
+        let index = serde_json::json!({ "packages": [] });
+        assert!(lts_releases(&index).is_empty());
+    }
 
-        let installed = vec![item(21, "temurin", Some("21.0.11+11"), Some('+'))];
-        assert!(layout(&installed, 200)[0].cells[0].0.starts_with("+ temurin"));
+    #[test]
+    fn a_row_mixing_lts_and_plain_cells_still_pads_to_one_width() {
+        let items = vec![
+            (installable_label(21, "temurin", Style::Normal, true), Style::Normal),
+            (installable_label(22, "zulu", Style::Normal, false), Style::Normal),
+        ];
+        let rows = columns(&items, 200);
+        let width = rows[0][0].0.chars().count();
+        assert!(rows[0].iter().all(|(text, _)| text.chars().count() == width));
+        assert!(rows[0][0].0.contains("ᴸᵀˢ"), "the mark was dropped: {:?}", rows[0][0].0);
+    }
+
+    #[test]
+    fn installable_cells_are_padded_to_one_width_and_packed_to_fit() {
+        let items = vec![
+            cell(8, "aoj", Style::Normal),
+            cell(8, "graalvm_community", Style::Current),
+            cell(21, "temurin", Style::Installed),
+        ];
+
+        let rows = columns(&items, 60);
+        let width = rows[0][0].0.chars().count();
+        assert!(rows.iter().flatten().all(|(text, _)| text.chars().count() == width));
+        assert_eq!(rows.iter().flatten().count(), items.len());
+        assert!(rows.iter().any(|row| row.len() > 1), "nothing was packed into columns");
+        for row in &rows {
+            let used: usize = row.iter().map(|(text, _)| text.chars().count()).sum();
+            assert!(used <= 60, "row overflowed the terminal: {used}");
+        }
+    }
+
+    #[test]
+    fn a_narrow_terminal_still_prints_one_version_per_row() {
+        let items = vec![cell(8, "aoj", Style::Normal), cell(21, "temurin", Style::Normal)];
+        let rows = columns(&items, 24);
+        assert_eq!(rows.len(), 2);
+        assert!(rows.iter().all(|row| row.len() == 1));
     }
 }

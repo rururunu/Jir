@@ -5,6 +5,14 @@
   "architecture": "x64",
   "package_type": "jdk",
   "selection": "one latest directly downloadable package per Java feature version and distro; zip preferred; falls back to early-access when GA is unavailable",
+  "lts_source": "Adoptium available_releases API",
+  "lts_releases": [
+    8,
+    11,
+    17,
+    21,
+    25
+  ],
   "packages": [
     {
       "version": 6,

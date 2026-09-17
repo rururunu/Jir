@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate bat/version.json from the Foojay Disco API."""
+"""Regenerate bat/version.json from the Foojay Disco API and the Adoptium API."""
 
 from __future__ import annotations
 
@@ -13,6 +13,11 @@ from datetime import date
 from pathlib import Path
 
 API_BASE = "https://api.foojay.io/disco/v3.0"
+# Foojay cannot answer "is this feature version LTS": its `term_of_support` is a
+# per-package field and vendors disagree about it — 14 of them report Java 21 as
+# `sts`, while 7 report Java 22 as `lts`. Adoptium publishes the set directly, off
+# the same Oracle cadence its Temurin builds follow, so read it from there.
+ADOPTIUM_RELEASES_URL = "https://api.adoptium.net/v3/info/available_releases"
 OUTPUT = Path(__file__).with_name("version.json")
 MIN_VERSION = 6
 MAX_VERSION = 27
@@ -158,9 +163,24 @@ def to_entry(pkg: dict, firm_names: dict[str, str]) -> dict:
     return entry
 
 
+def fetch_lts_releases() -> list[int]:
+    """Feature versions Adoptium ships as long-term support.
+
+    Versions outside Adoptium's range (Java 6, 7, 9, ...) are simply absent, which
+    is what `jir ls -i` wants: absent data means no mark, never a guess.
+    """
+    data = fetch_json(ADOPTIUM_RELEASES_URL)
+    releases = data.get("available_lts_releases")
+    if not isinstance(releases, list) or not releases:
+        raise RuntimeError("Adoptium returned no available_lts_releases")
+    return sorted(int(release) for release in releases)
+
+
 def main() -> None:
     firm_names = load_firm_names()
     packages: list[dict] = []
+    lts_releases = fetch_lts_releases()
+    print(f"LTS releases: {lts_releases}", flush=True)
 
     for feature_version in range(MIN_VERSION, MAX_VERSION + 1):
         print(f"Fetching Java {feature_version}...", flush=True)
@@ -185,6 +205,8 @@ def main() -> None:
             "one latest directly downloadable package per Java feature version "
             "and distro; zip preferred; falls back to early-access when GA is unavailable"
         ),
+        "lts_source": "Adoptium available_releases API",
+        "lts_releases": lts_releases,
         "packages": packages,
     }
     OUTPUT.write_text(json.dumps(output, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
