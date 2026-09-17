@@ -67,19 +67,19 @@ https://rururunu.github.io/Jir/bat/version.json
 构建独立 Windows 图形化安装器：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.3
+powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.4
 ```
 
 输出：
 
 ```text
-dist/jir-0.2.3-windows-x64-gui-setup.exe
+dist/jir-0.2.4-windows-x64-gui-setup.exe
 ```
 
 如果输出文件被占用，脚本会生成带时间戳的安装器：
 
 ```text
-dist/jir-0.2.3-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
+dist/jir-0.2.4-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 ```
 
 安装器会内嵌：
@@ -95,17 +95,17 @@ dist/jir-0.2.3-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 
 ```powershell
 # 1. 生成便携包与校验和文件，一行安装从这里取
-powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.3
+powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.4
 
 # 2. 打 tag，由 CI 发布一行安装所依赖的资产
-git tag v0.2.3
-git push origin v0.2.3
+git tag v0.2.4
+git push origin v0.2.4
 ```
 
 输出：
 
 ```text
-dist/jir-0.2.3-windows-x64.zip      便携包（jir.exe、LICENSE、README.md）
+dist/jir-0.2.4-windows-x64.zip      便携包（jir.exe、LICENSE、README.md）
 dist/SHA256SUMS.txt                 便携包的 SHA-256
 ```
 

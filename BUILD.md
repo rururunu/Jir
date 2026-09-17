@@ -67,19 +67,19 @@ The repository still keeps `bat/version.json` as the source file used for publis
 Build the standalone Windows GUI installer:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.3
+powershell -ExecutionPolicy Bypass -File .\packaging\windows\build-installer.ps1 -Version 0.2.4
 ```
 
 Output:
 
 ```text
-dist/jir-0.2.3-windows-x64-gui-setup.exe
+dist/jir-0.2.4-windows-x64-gui-setup.exe
 ```
 
 If the output file is locked, the script writes a timestamped installer instead:
 
 ```text
-dist/jir-0.2.3-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
+dist/jir-0.2.4-windows-x64-gui-setup-YYYYMMDD-HHMMSS.exe
 ```
 
 The installer embeds:
@@ -99,17 +99,17 @@ installer does not produce one.
 
 ```powershell
 # 1. Portable archive + checksum file. The one-liner installs from this.
-powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.3
+powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.4
 
 # 2. Tag the release and let CI publish the assets the one-liner installs from.
-git tag v0.2.3
-git push origin v0.2.3
+git tag v0.2.4
+git push origin v0.2.4
 ```
 
 Output:
 
 ```text
-dist/jir-0.2.3-windows-x64.zip      portable archive (jir.exe, LICENSE, README.md)
+dist/jir-0.2.4-windows-x64.zip      portable archive (jir.exe, LICENSE, README.md)
 dist/SHA256SUMS.txt                 SHA-256 of the archive
 ```
 
