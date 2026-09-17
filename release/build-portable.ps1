@@ -1,10 +1,10 @@
 # Builds the portable Windows x64 archive that the curl/wget channel installs,
 # together with the checksum file it verifies against.
 #
-#   powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.2
+#   powershell -ExecutionPolicy Bypass -File .\release\build-portable.ps1 -Version 0.2.3
 
 param(
-    [string]$Version = "0.2.2"
+    [string]$Version = "0.2.3"
 )
 
 $ErrorActionPreference = "Stop"

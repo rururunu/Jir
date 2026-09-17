@@ -20,10 +20,10 @@
     Override the download base. Defaults to the GitHub release for -Version.
 
 .EXAMPLE
-    irm https://github.com/rururunu/Jir/releases/download/v0.2.2/install.ps1 | iex
+    irm https://github.com/rururunu/Jir/releases/download/v0.2.3/install.ps1 | iex
 
 .EXAMPLE
-    .\install.ps1 -Version 0.2.2 -InstallDir D:\tools\jir
+    .\install.ps1 -Version 0.2.3 -InstallDir D:\tools\jir
 
 .NOTES
     The JDK store stays put and JAVA_HOME is left alone on purpose: point it at
@@ -32,7 +32,7 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Version    = "0.2.2",
+    [string]$Version    = "0.2.3",
     [string]$InstallDir = (Join-Path $env:LOCALAPPDATA "jir"),
     [string]$BaseUrl    = ""
 )
