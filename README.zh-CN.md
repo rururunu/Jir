@@ -10,7 +10,7 @@
 
 **文档语言：** 中文 | [English](README.md)
 
-**官网：** [rururunu.github.io/Jir](https://rururunu.github.io/Jir/)
+**官网：** [rururunu.github.io/Jir](https://rururunu.github.io/Jir/site/index.html)
 
 </div>
 

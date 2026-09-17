@@ -1,5 +1,3 @@
-<meta http-equiv="refresh" content="0; url=https://rururunu.github.io/Jir/site/index.html">
-
 <div align="center">
 
 <img src="assets/jir.png" alt="jir" width="200">
