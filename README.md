@@ -12,7 +12,7 @@
 
 **Language:** English | [中文](README.zh-CN.md)
 
-**Website:** [rururunu.github.io/Jir](https://rururunu.github.io/Jir/)
+**Website:** [rururunu.github.io/Jir](https://rururunu.github.io/Jir/site/index.html)
 
 </div>
 
