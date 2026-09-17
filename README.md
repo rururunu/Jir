@@ -1,6 +1,23 @@
-# jir
+<div align="center">
+
+<pre>
+     ██╗ ██╗ ██████╗ 
+     ██║ ██║ ██╔══██╗
+     ██║ ██║ ██████╔╝
+██   ██║ ██║ ██╔══██╗
+╚█████╔╝ ██║ ██║  ██║
+ ╚════╝  ╚═╝ ╚═╝  ╚═╝
+</pre>
+
+**Manage Java runtimes fast.**
+
+![version](https://img.shields.io/github/v/release/rururunu/Jir?style=flat-square&label=version&color=CE2029)
+![platform](https://img.shields.io/badge/platform-Windows%20x64-586173?style=flat-square)
+![license](https://img.shields.io/badge/license-MIT-3A3030?style=flat-square)
 
 **Language:** English | [中文](README.zh-CN.md)
+
+</div>
 
 `jir` helps you manage Java versions without fighting `JAVA_HOME`.
 
@@ -19,10 +36,25 @@ On Windows, switching uses a directory junction, so it is fast and does not copy
 
 ## Install
 
+The recommended way to install on Windows is the [GUI installer](#gui-installer).
+It records the installation, so `jir` shows up in "Apps & features" and can be
+uninstalled normally, and it reuses the directory of an existing installation
+instead of creating a second copy.
+
+Do not mix the two channels. Each keeps its own install directory and its own JDK
+library under `home/`, so installing both leaves two unrelated copies of `jir` on
+`PATH`.
+
+Either way, `jir update` (see [Commands](#commands)) upgrades whichever copy you
+run, so you normally do not need to download a new installer again.
+
 ### PowerShell one-liner (curl / wget)
 
+This is the portable path. It ships no `uninstall.exe`, so removing it means
+deleting its directory and its `PATH` and `JIR_HOME` entries yourself.
+
 ```powershell
-iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.2/install.ps1')
+iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.3/install.ps1')
 ```
 
 This downloads the portable archive, verifies its SHA-256 against the release's
@@ -39,8 +71,8 @@ your user `PATH`, and sets `JIR_HOME`. It needs no administrator rights.
 To fetch and unpack it by hand instead:
 
 ```powershell
-curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.2/jir-0.2.2-windows-x64.zip
-curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.2/SHA256SUMS.txt
+curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.3/jir-0.2.3-windows-x64.zip
+curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.3/SHA256SUMS.txt
 Get-FileHash .\jir.zip -Algorithm SHA256   # compare with SHA256SUMS.txt
 Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 ```
@@ -48,7 +80,7 @@ Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 With `wget` from Git for Windows, the download is:
 
 ```bash
-wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.2/jir-0.2.2-windows-x64.zip
+wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.3/jir-0.2.3-windows-x64.zip
 ```
 
 Either way, once you have installed a JDK, point `JAVA_HOME` at
@@ -57,11 +89,9 @@ is active.
 
 ### GUI installer
 
-Download or build the Windows GUI installer:
-
-```text
-dist/jir-0.2.2-windows-x64-gui-setup.exe
-```
+The recommended installer for Windows. Download it from the
+[releases page](https://github.com/rururunu/Jir/releases/latest) — pick
+`jir-<version>-windows-x64-gui-setup.exe`.
 
 The installer lets you choose where `jir` lives. It can also add `jir` to `PATH` and set `JAVA_HOME` for you.
 
@@ -114,22 +144,26 @@ jir uni 21:temurin
 A target is either a feature version (`21`) or a full `version:distro` pair
 (`21:temurin`). Give a version only, and `jir` asks which vendor you mean.
 
-- `jir`, `jir -h`, `jir --help`, `jir help <command>`: show help.
-- `jir ls`: show installed JDKs.
-- `jir ls -i`: show installable JDKs.
-- `jir ls -i 21`: show installable JDKs for one feature version.
-- `jir i 21`: install Java 21 and choose a vendor.
-- `jir i 21:temurin`: install a specific distro.
-- `jir i 21:temurin 17:corretto`: install several at once.
-- `jir use`: pick from every installed JDK and activate it.
-- `jir use 21`: choose an installed Java 21 distro and activate it.
-- `jir use 21:temurin`: activate a specific installed distro.
-- `jir current`: show the active Java runtime.
-- `jir uni 21`: choose an installed Java 21 distro and remove it.
-- `jir uni 21:temurin`: uninstall a JDK after confirmation (`-y` to skip).
+| Command | What it does |
+| --- | --- |
+| `jir`, `jir -h`, `jir --help`, `jir help` | Show the help screen. |
+| `jir ls` | Show installed JDKs. |
+| `jir ls -i` | Show installable JDKs. |
+| `jir ls -i 21` | Show installable JDKs for one feature version. |
+| `jir i 21` | Install Java 21 and choose a vendor. |
+| `jir i 21:temurin` | Install a specific distro. |
+| `jir i 21:temurin 17:corretto` | Install several at once. |
+| `jir use` | Pick from every installed JDK and activate it. |
+| `jir use 21` | Choose an installed Java 21 distro and activate it. |
+| `jir use 21:temurin` | Activate a specific installed distro. |
+| `jir current` | Show the active Java runtime. |
+| `jir -v` | Print the installed version. |
+| `jir uni 21` | Choose an installed Java 21 distro and remove it. |
+| `jir uni 21:temurin` | Uninstall a JDK after confirmation (`-y` to skip). |
+| `jir update` | Update jir itself to the newest release (`--force` to reinstall). |
 
 Aliases: `ls` = `list`, `i` = `install`, `u` = `use`, `uni` = `uninstall`,
-`cur` = `current`. Show a command's own help with `jir help use`.
+`cur` = `current`, `up` = `update`. The same table is printed by `jir -h`, in colour.
 
 ### Reading the lists
 

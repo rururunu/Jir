@@ -1,6 +1,23 @@
-# jir
+<div align="center">
+
+<pre>
+     ██╗ ██╗ ██████╗ 
+     ██║ ██║ ██╔══██╗
+     ██║ ██║ ██████╔╝
+██   ██║ ██║ ██╔══██╗
+╚█████╔╝ ██║ ██║  ██║
+ ╚════╝  ╚═╝ ╚═╝  ╚═╝
+</pre>
+
+**Manage Java runtimes fast.**
+
+![version](https://img.shields.io/github/v/release/rururunu/Jir?style=flat-square&label=version&color=CE2029)
+![platform](https://img.shields.io/badge/platform-Windows%20x64-586173?style=flat-square)
+![license](https://img.shields.io/badge/license-MIT-3A3030?style=flat-square)
 
 **文档语言：** 中文 | [English](README.md)
+
+</div>
 
 `jir` 用来帮你管理 Java 版本，尽量少折腾 `JAVA_HOME`。
 
@@ -18,10 +35,18 @@
 
 ## 安装
 
+Windows 上推荐用[图形化安装器](#图形化安装器)安装。它会记录安装信息，因此 `jir` 会出现在“应用和功能”里、可以正常卸载，并且会复用已有安装的目录，而不是再装出第二份。
+
+不要混用两种渠道。它们各自维护自己的安装目录和 `home/` 下的 JDK 库，两个都装会让 `PATH` 上出现两份互不相干的 `jir`。
+
+无论用哪种方式，`jir update`（见[命令](#命令)）都会就地更新你运行的那一份，所以通常不必再下载新的安装包。
+
 ### PowerShell 一行安装（curl / wget）
 
+这是便携路径。它不带 `uninstall.exe`，卸载需要自己删除目录并清理 `PATH` 与 `JIR_HOME`。
+
 ```powershell
-iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.2/install.ps1')
+iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/releases/download/v0.2.3/install.ps1')
 ```
 
 这条命令会下载便携包、用 Release 里的 `SHA256SUMS.txt` 校验 SHA-256、解压到 `%LOCALAPPDATA%\jir\bin`，把该目录加入用户 `PATH`，并设置 `JIR_HOME`。不需要管理员权限。
@@ -31,8 +56,8 @@ iex (New-Object Net.WebClient).DownloadString('https://github.com/rururunu/Jir/r
 如果你想手动下载并解压：
 
 ```powershell
-curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.2/jir-0.2.2-windows-x64.zip
-curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.2/SHA256SUMS.txt
+curl.exe -fL -o jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.3/jir-0.2.3-windows-x64.zip
+curl.exe -fL -o SHA256SUMS.txt https://github.com/rururunu/Jir/releases/download/v0.2.3/SHA256SUMS.txt
 Get-FileHash .\jir.zip -Algorithm SHA256   # 与 SHA256SUMS.txt 对比
 Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 ```
@@ -40,18 +65,14 @@ Expand-Archive .\jir.zip -DestinationPath "$env:LOCALAPPDATA\jir\bin"
 用 Git for Windows 自带的 `wget`：
 
 ```bash
-wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.2/jir-0.2.2-windows-x64.zip
+wget -O jir.zip https://github.com/rururunu/Jir/releases/download/v0.2.3/jir-0.2.3-windows-x64.zip
 ```
 
 无论用哪种方式，装好 JDK 后把 `JAVA_HOME` 指向 `%LOCALAPPDATA%\jir\home\occupy` 即可——`jir` 会让这个路径始终指向当前激活的 JDK。
 
 ### 图形化安装器
 
-使用或构建 Windows 图形化安装器：
-
-```text
-dist/jir-0.2.2-windows-x64-gui-setup.exe
-```
+Windows 上推荐的安装方式。到[发布页](https://github.com/rururunu/Jir/releases/latest)下载 `jir-<版本>-windows-x64-gui-setup.exe` 即可。
 
 安装器可以选择安装目录，也可以帮你把 `jir` 加到 `PATH`，以及设置 `JAVA_HOME`。
 
@@ -103,21 +124,25 @@ jir uni 21:temurin
 
 目标写法有两种：只写特性版本（`21`），或写完整的 `version:distro`（`21:temurin`）。只写版本时，`jir` 会询问你要用哪个发行商。
 
-- `jir`、`jir -h`、`jir --help`、`jir help <命令>`：显示帮助。
-- `jir ls`：查看已安装的 JDK。
-- `jir ls -i`：查看可安装的 JDK。
-- `jir ls -i 21`：只查看某个特性版本的可安装 JDK。
-- `jir i 21`：安装 Java 21，并选择发行商。
-- `jir i 21:temurin`：安装指定发行版。
-- `jir i 21:temurin 17:corretto`：一次安装多个。
-- `jir use`：从所有已安装的 JDK 中挑一个并激活。
-- `jir use 21`：从已安装的 Java 21 中选择一个并激活。
-- `jir use 21:temurin`：直接激活指定发行版。
-- `jir current`：查看当前激活的 Java。
-- `jir uni 21`：从已安装的 Java 21 中选择一个并卸载。
-- `jir uni 21:temurin`：确认后卸载某个 JDK（`-y` 可跳过确认）。
+| 命令 | 作用 |
+| --- | --- |
+| `jir`、`jir -h`、`jir --help`、`jir help` | 显示帮助。 |
+| `jir ls` | 查看已安装的 JDK。 |
+| `jir ls -i` | 查看可安装的 JDK。 |
+| `jir ls -i 21` | 只查看某个特性版本的可安装 JDK。 |
+| `jir i 21` | 安装 Java 21，并选择发行商。 |
+| `jir i 21:temurin` | 安装指定发行版。 |
+| `jir i 21:temurin 17:corretto` | 一次安装多个。 |
+| `jir use` | 从所有已安装的 JDK 中挑一个并激活。 |
+| `jir use 21` | 从已安装的 Java 21 中选择一个并激活。 |
+| `jir use 21:temurin` | 直接激活指定发行版。 |
+| `jir current` | 查看当前激活的 Java。 |
+| `jir -v` | 查看当前 jir 版本。 |
+| `jir uni 21` | 从已安装的 Java 21 中选择一个并卸载。 |
+| `jir uni 21:temurin` | 确认后卸载某个 JDK（`-y` 可跳过确认）。 |
+| `jir update` | 把 jir 自身更新到最新版（`--force` 可强制重装）。 |
 
-别名：`ls` = `list`，`i` = `install`，`u` = `use`，`uni` = `uninstall`，`cur` = `current`。查看某个命令自己的帮助用 `jir help use`。
+别名：`ls` = `list`，`i` = `install`，`u` = `use`，`uni` = `uninstall`，`cur` = `current`，`up` = `update`。同一张表由 `jir -h` 彩色打印。
 
 ### 怎么看列表
 

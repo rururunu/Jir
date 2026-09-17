@@ -12,7 +12,6 @@
 # Local jir runtime storage
 /home/
 **/home/
-/packaging
 /scripts
 
 # Temporary files
@@ -27,6 +26,9 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Anya agent workspace (plans, tool output dumps)
+.anya/
 
 # Rust backup files
 **/*.rs.bk
