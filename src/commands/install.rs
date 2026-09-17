@@ -126,7 +126,7 @@ fn work_key(version: u64, distro: &str) -> String {
 
 /// JDK archives are 100–200 MB: a dropped connection used to mean starting over,
 /// so retry a few times, dropping the partial file between attempts.
-fn download(url: &str, filename: &str, key: &str) -> Result<PathBuf> {
+pub(crate) fn download(url: &str, filename: &str, key: &str) -> Result<PathBuf> {
     let tmp_dir = std::env::temp_dir().join("jir_download").join(key);
     fs::create_dir_all(&tmp_dir)?;
     let dest = tmp_dir.join(filename);

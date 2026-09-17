@@ -7,9 +7,15 @@ use crate::commands;
 #[command(
     name = "jir",
     version,
+    // the flag is declared by hand below so `-v` works, not just `-V`
+    disable_version_flag = true,
+    // Deliberately NOT `disable_help_flag`: clap keeps that as a *global*
+    // setting and ORs it into every subcommand (`_propagate_subcommand`), which
+    // left `jir ls -h` with no help flag at all. The root screen is intercepted
+    // in `main` instead, so subcommands keep clap's own flag.
+    disable_help_subcommand = true,
     about = "Java Install & Runtime manager",
     long_about = None,
-    arg_required_else_help = true,
     after_help = "Examples:\n  \
         jir ls -i            show downloadable versions\n  \
         jir i 21             pick a vendor and install Java 21\n  \
@@ -21,8 +27,12 @@ use crate::commands;
         The active JDK is exposed through home/occupy — point JAVA_HOME there once."
 )]
 pub struct Cli {
+    /// Print the installed jir version
+    #[arg(short = 'v', short_alias = 'V', long = "version")]
+    pub version: bool,
+
     #[command(subcommand)]
-    pub command: Commands,
+    pub command: Option<Commands>,
 }
 
 #[derive(Subcommand)]
@@ -67,11 +77,34 @@ pub enum Commands {
     /// Show the currently active JDK
     #[command(alias = "cur")]
     Current,
+
+    /// Update jir itself to the newest release
+    #[command(alias = "up")]
+    Update {
+        /// Reinstall even when this is already the newest release
+        #[arg(short = 'f', long = "force")]
+        force: bool,
+    },
+
+    /// Print this help
+    Help,
 }
 
 impl Cli {
     pub fn run(self) -> Result<()> {
-        match self.command {
+        if self.version {
+            crate::theme::print_version(env!("CARGO_PKG_VERSION"));
+            return Ok(());
+        }
+        // A bare `jir` used to be answered by clap's own help text. It is ours
+        // now, and it keeps clap's exit code: 2, the invocation asked for
+        // nothing.
+        let Some(command) = self.command else {
+            crate::theme::print_help();
+            std::process::exit(2);
+        };
+
+        match command {
             Commands::List { installable, filter } => commands::list::run(installable, filter.as_deref()),
             Commands::Install { spec } => {
                 anyhow::ensure!(
@@ -86,6 +119,11 @@ impl Cli {
             Commands::Use { spec } => commands::switch::run(spec.as_deref()),
             Commands::Uninstall { spec, force } => commands::uninstall::run(&spec, force),
             Commands::Current => commands::current::run(),
+            Commands::Update { force } => commands::update::run(force),
+            Commands::Help => {
+                crate::theme::print_help();
+                Ok(())
+            }
         }
     }
 }
