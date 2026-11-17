@@ -1,5 +1,6 @@
 # Build Guide
 
+1
 **Language:** English | [中文](BUILD.zh-CN.md)
 
 This document explains how to build, run, test, and package `jir`.
@@ -214,4 +215,3 @@ Remove-Item .\dist -Recurse -Force
 ```
 
 Only remove `dist/` when no installer window is open.
-

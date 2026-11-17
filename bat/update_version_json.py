@@ -20,7 +20,7 @@ API_BASE = "https://api.foojay.io/disco/v3.0"
 ADOPTIUM_RELEASES_URL = "https://api.adoptium.net/v3/info/available_releases"
 OUTPUT = Path(__file__).with_name("version.json")
 MIN_VERSION = 6
-MAX_VERSION = 27
+MAX_VERSION = 28
 ARCHIVE_PRIORITY = ("zip", "msi", "exe")
 MAX_RETRIES = 5
 

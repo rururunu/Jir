@@ -399,7 +399,7 @@ client reads (`src/jdk.rs:6`). `bat/update_version_json.py` regenerates it.
 
 ```mermaid
 flowchart TD
-    Loop["For each feature version 6 ..= 27"] --> Query["Foojay Disco query: package_type=jdk, operating_system=windows, architecture=x64, directly_downloadable=true"]
+    Loop["For each feature version 6 ..= 28"] --> Query["Foojay Disco query: package_type=jdk, operating_system=windows, architecture=x64, directly_downloadable=true"]
     Query --> Pick["pick_package — one package per distro"]
     Pick --> Pref["Preference order: zip > msi > exe, then latest GA, non-JFX-bundled, highest java_version"]
     Pref --> GA{"GA release available?"}

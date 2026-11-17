@@ -283,7 +283,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Loop["遍历特性版本 6 ..= 27"] --> Query["Foojay Disco 查询：package_type=jdk, operating_system=windows, architecture=x64, directly_downloadable=true"]
+    Loop["遍历特性版本 6 ..= 28"] --> Query["Foojay Disco 查询：package_type=jdk, operating_system=windows, architecture=x64, directly_downloadable=true"]
     Query --> Pick["pick_package — 每个发行商只取一个包"]
     Pick --> Pref["偏好顺序：zip > msi > exe，再按最新 GA、非捆绑 JavaFX、java_version 最高"]
     Pref --> GA{"存在 GA 版本?"}
